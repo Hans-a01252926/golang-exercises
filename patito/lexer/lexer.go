@@ -157,13 +157,6 @@ func (l *Lexer) readNumber() (string, token.TokenType) {
 	return l.input[position:l.position], tokType
 }
 
-func (l *Lexer) peekChar() byte {
-	if l.readPosition >= len(l.input) {
-		return 0
-	}
-	return l.input[l.readPosition]
-}
-
 // Auxiliar Identificadores
 func isLetter(ch byte) bool {
 	return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_'
@@ -171,7 +164,7 @@ func isLetter(ch byte) bool {
 
 func (l *Lexer) readIdentifier() string {
 	position := l.position
-	for isLetter(l.ch) {
+	for isLetter(l.ch) || isDigit(l.ch) {
 		l.readChar()
 	}
 	return l.input[position:l.position]
@@ -207,4 +200,12 @@ func (l *Lexer) readString() string {
 	l.readChar()
 
 	return literal
+}
+
+func (l *Lexer) peekChar() byte { // Casos con  ==, !=, que tienen dos caracteres
+	if l.readPosition >= len(l.input) {
+		return 0
+	} else {
+		return l.input[l.readPosition]
+	}
 }
