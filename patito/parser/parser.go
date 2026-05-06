@@ -3,22 +3,12 @@
 //line parser/parser.y:1
 
 package parser
+
 import __yyfmt__ "fmt"
+
 //line parser/parser.y:3
-		
-import (
-    "patito/token"
-)
-}%
 
-%union {
-	lit string
-}
-
-%{
-package parser
-
-//line parser/parser.y:17
+//line parser/parser.y:5
 type yySymType struct {
 	yys int
 	lit string
@@ -99,26 +89,24 @@ var yyToknames = [...]string{
 	"UMINUS",
 }
 
-var yyStatenames = [...]string{
-}
+var yyStatenames = [...]string{}
 
 const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line parser/parser.y:203
-
+//line parser/parser.y:191
 
 func Parse(l yyLexer) int {
 	return yyParse(l)
 }
+
 //line yacctab:1
 var yyExca = [...]int8{
 	-1, 1,
 	1, -1,
 	-2, 0,
 }
-
 
 const yyPrivate = 57344
 
@@ -227,18 +215,15 @@ var yyTok2 = [...]int8{
 	32, 33, 34, 35, 36, 37,
 }
 
-
 var yyTok3 = [...]int8{
 	0,
 }
-
 
 var yyErrorMessages = [...]struct {
 	state int
 	token int
 	msg   string
-}{
-}
+}{}
 
 //line yaccpar:1
 

@@ -1,10 +1,6 @@
 %{
 package parser
-
-import (
-    "patito/token"
-)
-}%
+%}
 
 %union {
 	lit string
