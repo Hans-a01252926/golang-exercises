@@ -1,0 +1,4 @@
+programa prueba;
+inicio {
+	x = 5 @ 3;
+} fin

@@ -1,0 +1,4 @@
+programa prueba;
+inicio {
+	escribe("hola";
+} fin

@@ -1,0 +1,22 @@
+programa prueba;
+
+vars x, y : entero;
+vars z : flotante;
+
+inicio {
+	x = 5;
+	y = 10;
+	z = 3.14;
+
+	escribe("resultado", x + y);
+
+	si (x < y) {
+		escribe("x es menor");
+	} sino {
+		escribe("x no es menor");
+	};
+
+	mientras (x != y) haz {
+		x = x + 1;
+	};
+} fin
