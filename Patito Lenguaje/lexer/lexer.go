@@ -1,6 +1,6 @@
 package lexer
 
-import "token/token"
+import "patito/token"
 
 type Lexer struct {
 	input        string
@@ -48,7 +48,7 @@ func (l *Lexer) NextToken() token.Token {
 	case '<':
 		tok = newToken(token.MENOR, l.ch)
 	case '!':
-		if l.peekChar() == '=' {
+		if l.readPosition < len(l.input) && l.input[l.readPosition] == '=' {
 			ch := l.ch
 			l.readChar()
 			tok = token.Token{Type: token.DIF, Literal: string(ch) + string(l.ch)}

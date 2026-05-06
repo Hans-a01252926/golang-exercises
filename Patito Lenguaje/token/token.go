@@ -42,4 +42,6 @@ const (
 	LLAVE_DER = "}"
 	CORCH_IZQ = "["
 	CORCH_DER = "]"
+	ILLEGAL   = "ILLEGAL"
+	EOF       = "EOF"
 )
