@@ -27,6 +27,10 @@ inicio {
 	mientras (x != y) haz {
 		x = x + 1;
 	};
+
+	10 == 10;
+	9 != 10;
+
 } fin
 `
 
@@ -124,6 +128,16 @@ inicio {
 		{token.PUNTOCOMA, ";"},
 
 		{token.LLAVE_DER, "}"},
+		{token.PUNTOCOMA, ";"},
+
+		{token.CTE_ENT, "10"},
+		{token.IGUAL, "=="},
+		{token.CTE_ENT, "10"},
+		{token.PUNTOCOMA, ";"},
+
+		{token.CTE_ENT, "9"},
+		{token.DIF, "!="},
+		{token.CTE_ENT, "10"},
 		{token.PUNTOCOMA, ";"},
 
 		{token.LLAVE_DER, "}"},

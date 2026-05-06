@@ -53,7 +53,13 @@ func (l *Lexer) NextToken() token.Token {
 
 	switch l.ch {
 	case '=':
-		tok = newToken(token.ASIGNA, l.ch)
+		if l.readPosition < len(l.input) && l.input[l.readPosition] == '=' {
+			ch := l.ch
+			l.readChar()
+			tok = token.Token{Type: token.IGUAL, Literal: string(ch) + string(l.ch)}
+		} else {
+			tok = newToken(token.ASIGNA, l.ch)
+		}
 	case '+':
 		tok = newToken(token.MAS, l.ch)
 	case '-':
@@ -95,7 +101,7 @@ func (l *Lexer) NextToken() token.Token {
 	case '"':
 		tok.Type = token.LETRERO
 		tok.Literal = l.readString()
-		return tok
+		return tok // Retorna aquí para evitar avanzar el caracter después de leer el string
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
@@ -179,9 +185,26 @@ func lookupIdent(ident string) token.TokenType {
 }
 
 func (l *Lexer) readString() string {
-	position := l.position + 1
-	for l.ch != '"' {
+	start := l.position // Fix para error de comillas
+
+	// Avanza al primer carácter dentro del string
+	l.readChar()
+
+	for l.ch != '"' && l.ch != 0 {
 		l.readChar()
 	}
-	return l.input[position:l.position]
+
+	// Si llegó al final del input sin encontrar comilla de cierre
+	if l.ch == 0 {
+		return l.input[start:l.position]
+	}
+
+	// l.position está en la comilla final.
+	// Incluimos la comilla final con +1.
+	literal := l.input[start : l.position+1]
+
+	// Avanza después de la comilla final
+	l.readChar()
+
+	return literal
 }
