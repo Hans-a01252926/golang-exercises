@@ -49,6 +49,8 @@ func newToken(tokenType token.TokenType, ch byte) token.Token {
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
+	l.skipWhitespace()
+
 	switch l.ch {
 	case '=':
 		tok = newToken(token.ASIGNA, l.ch)
@@ -90,6 +92,10 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.CORCH_IZQ, l.ch)
 	case ']':
 		tok = newToken(token.CORCH_DER, l.ch)
+	case '"':
+		tok.Type = token.LETRERO
+		tok.Literal = l.readString()
+		return tok
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
@@ -100,6 +106,11 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Type = lookupIdent(literal)
 			tok.Literal = literal
 			return tok
+		} else if isDigit(l.ch) {
+			literal, tokType := l.readNumber()
+			tok.Type = tokType
+			tok.Literal = literal
+			return tok
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}
@@ -107,6 +118,49 @@ func (l *Lexer) NextToken() token.Token {
 
 	l.readChar()
 	return tok
+}
+
+func (l *Lexer) skipWhitespace() {
+	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
+		l.readChar()
+	}
+}
+
+// Auxiliar Numeros
+func isDigit(ch byte) bool {
+	return '0' <= ch && ch <= '9'
+}
+
+func (l *Lexer) readNumber() (string, token.TokenType) {
+	position := l.position
+	var tokType token.TokenType = token.CTE_ENT
+
+	for isDigit(l.ch) {
+		l.readChar()
+	}
+
+	if l.ch == '.' && isDigit(l.peekChar()) {
+		tokType = token.CTE_FLOT
+		l.readChar()
+
+		for isDigit(l.ch) {
+			l.readChar()
+		}
+	}
+
+	return l.input[position:l.position], tokType
+}
+
+func (l *Lexer) peekChar() byte {
+	if l.readPosition >= len(l.input) {
+		return 0
+	}
+	return l.input[l.readPosition]
+}
+
+// Auxiliar Identificadores
+func isLetter(ch byte) bool {
+	return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_'
 }
 
 func (l *Lexer) readIdentifier() string {
@@ -124,6 +178,10 @@ func lookupIdent(ident string) token.TokenType {
 	return token.ID
 }
 
-func isLetter(ch byte) bool {
-	return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_'
+func (l *Lexer) readString() string {
+	position := l.position + 1
+	for l.ch != '"' {
+		l.readChar()
+	}
+	return l.input[position:l.position]
 }
