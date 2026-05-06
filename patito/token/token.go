@@ -27,7 +27,7 @@ const (
 	ASIGNA    = "="
 	MAS       = "+"
 	MENOS     = "-"
-	MULTI     = "*"
+	MULT      = "*"
 	DIVIDE    = "/"
 	MAYOR     = ">"
 	MENOR     = "<"

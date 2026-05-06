@@ -1,6 +1,23 @@
 package lexer
 
-import "patito/token"
+import (
+	"patito/token"
+)
+
+var keywords = map[string]token.TokenType{
+	"programa": token.PROGRAMA,
+	"vars":     token.VARS,
+	"inicio":   token.INICIO,
+	"fin":      token.FIN,
+	"entero":   token.ENTERO,
+	"flotante": token.FLOTANTE,
+	"nula":     token.NULA,
+	"si":       token.SI,
+	"sino":     token.SINO,
+	"mientras": token.MIENTRAS,
+	"haz":      token.HAZ,
+	"escribe":  token.ESCRIBE,
+}
 
 type Lexer struct {
 	input        string
@@ -40,7 +57,7 @@ func (l *Lexer) NextToken() token.Token {
 	case '-':
 		tok = newToken(token.MENOS, l.ch)
 	case '*':
-		tok = newToken(token.MULTI, l.ch)
+		tok = newToken(token.MULT, l.ch)
 	case '/':
 		tok = newToken(token.DIVIDE, l.ch)
 	case '>':
@@ -76,8 +93,37 @@ func (l *Lexer) NextToken() token.Token {
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
+
+	default:
+		if isLetter(l.ch) {
+			literal := l.readIdentifier()
+			tok.Type = lookupIdent(literal)
+			tok.Literal = literal
+			return tok
+		} else {
+			tok = newToken(token.ILLEGAL, l.ch)
+		}
 	}
 
 	l.readChar()
 	return tok
+}
+
+func (l *Lexer) readIdentifier() string {
+	position := l.position
+	for isLetter(l.ch) {
+		l.readChar()
+	}
+	return l.input[position:l.position]
+}
+
+func lookupIdent(ident string) token.TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return token.ID
+}
+
+func isLetter(ch byte) bool {
+	return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_'
 }

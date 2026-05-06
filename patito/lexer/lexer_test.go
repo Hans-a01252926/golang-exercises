@@ -28,7 +28,7 @@ inicio {
 		x = x + 1;
 	};
 } fin
-	`
+`
 
 	tests := []struct {
 		expectedType    token.TokenType
