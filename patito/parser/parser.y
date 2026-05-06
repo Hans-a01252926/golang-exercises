@@ -1,3 +1,15 @@
+%{
+package parser
+
+import (
+    "patito/token"
+)
+}%
+
+%union {
+	lit string
+}
+
 %token PROGRAMA VARS INICIO FIN
 %token ENTERO FLOTANTE NULA
 %token SI SINO MIENTRAS HAZ ESCRIBE
