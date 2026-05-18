@@ -1,7 +1,6 @@
-package semantica
+package semantic
 
 type Type string
-type Operator string
 
 const (
 	TypeEntero   Type = "entero"
@@ -10,11 +9,3 @@ const (
 	TypeNula     Type = "nula"
 	TypeError    Type = "error"
 )
-
-type CubeKey struct {
-	Left  Type
-	Op    Operator
-	Right Type
-}
-
-type SemanticCube map[CubeKey]Type
