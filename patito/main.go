@@ -19,13 +19,10 @@ func main() {
 		return
 	}
 
-	// Este es tu adaptador lexer -> parser
-	l := parser.NewPatitoLexer(string(content))
+	l := parser.NewPatitoLexer(string(content)) // Este es tu adaptador lexer -> parser
+	result := parser.Parse(l)                   // Esta es la función Parse generada por goyacc
 
-	// Esta es la función Parse generada por goyacc
-	result := parser.Parse(l)
-
-	if result == 0 && len(l.Errors) == 0 {
+	if result == 0 && len(l.Errors) == 0 && len(l.Sem.Errors) == 0 {
 		fmt.Println("Programa Patito válido")
 		return
 	}
@@ -33,5 +30,9 @@ func main() {
 	fmt.Println("Programa Patito inválido")
 	for _, e := range l.Errors {
 		fmt.Println("Error:", e)
+	}
+
+	for _, e := range l.Sem.Errors {
+		fmt.Println("Error semántico:", e)
 	}
 }
