@@ -1,0 +1,7 @@
+programa prueba;
+
+vars x : entero;
+vars x : flotante;
+
+inicio {
+} fin
