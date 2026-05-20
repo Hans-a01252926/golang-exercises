@@ -6,17 +6,21 @@ método Lex que retorne un token y un método Error para manejar errores de aná
 import (
 	"fmt"
 	"patito/lexer"
+	"patito/semantic"
 	"patito/token"
 )
 
 type PatitoLexer struct {
 	l      *lexer.Lexer
 	Errors []string
+	Sem    *semantic.SemanticContext
 }
 
 func NewPatitoLexer(input string) *PatitoLexer {
 	return &PatitoLexer{
-		l: lexer.New(input),
+		l:      lexer.New(input),
+		Errors: []string{},
+		Sem:    semantic.NewSemanticContext(),
 	}
 }
 
