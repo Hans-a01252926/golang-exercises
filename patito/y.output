@@ -305,11 +305,12 @@ state 37
 
 
 state 38
-	ciclo:  MIENTRAS.PAR_IZQ expresion PAR_DER $$36 HAZ cuerpo PUNTOCOMA 
+	ciclo:  MIENTRAS.$$37 PAR_IZQ expresion PAR_DER $$38 HAZ cuerpo PUNTOCOMA 
+	$$37: .    (37)
 
-	PAR_IZQ  shift 49
-	.  error
+	.  reduce 37 (src line 185)
 
+	$$37  goto 49
 
 state 39
 	imprime:  ESCRIBE.PAR_IZQ imprime_args PAR_DER PUNTOCOMA 
@@ -379,7 +380,7 @@ state 46
 
 state 47
 	llamada:  ID PAR_IZQ.argumentos PAR_DER 
-	argumentos: .    (40)
+	argumentos: .    (42)
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -387,7 +388,7 @@ state 47
 	MAS  shift 59
 	MENOS  shift 60
 	PAR_IZQ  shift 58
-	.  reduce 40 (src line 189)
+	.  reduce 42 (src line 206)
 
 	expresion  goto 67
 	exp  goto 55
@@ -416,22 +417,11 @@ state 48
 	llamada  goto 63
 
 state 49
-	ciclo:  MIENTRAS PAR_IZQ.expresion PAR_DER $$36 HAZ cuerpo PUNTOCOMA 
+	ciclo:  MIENTRAS $$37.PAR_IZQ expresion PAR_DER $$38 HAZ cuerpo PUNTOCOMA 
 
-	ID  shift 61
-	CTE_ENT  shift 64
-	CTE_FLOT  shift 65
-	MAS  shift 59
-	MENOS  shift 60
-	PAR_IZQ  shift 58
+	PAR_IZQ  shift 69
 	.  error
 
-	expresion  goto 69
-	exp  goto 55
-	termino  goto 56
-	factor  goto 57
-	cte  goto 62
-	llamada  goto 63
 
 state 50
 	imprime:  ESCRIBE PAR_IZQ.imprime_args PAR_DER PUNTOCOMA 
@@ -485,13 +475,13 @@ state 54
 
 
 state 55
-	expresion:  exp.    (49)
-	expresion:  exp.MAYOR $$50 exp 
-	expresion:  exp.MENOR $$52 exp 
-	expresion:  exp.DIF $$54 exp 
-	expresion:  exp.IGUAL $$56 exp 
-	exp:  exp.MAS $$58 termino 
-	exp:  exp.MENOS $$60 termino 
+	expresion:  exp.    (51)
+	expresion:  exp.MAYOR $$52 exp 
+	expresion:  exp.MENOR $$54 exp 
+	expresion:  exp.DIF $$56 exp 
+	expresion:  exp.IGUAL $$58 exp 
+	exp:  exp.MAS $$60 termino 
+	exp:  exp.MENOS $$62 termino 
 
 	MAS  shift 82
 	MENOS  shift 83
@@ -499,23 +489,23 @@ state 55
 	MENOR  shift 79
 	DIF  shift 80
 	IGUAL  shift 81
-	.  reduce 49 (src line 222)
+	.  reduce 51 (src line 239)
 
 
 state 56
-	exp:  termino.    (62)
-	termino:  termino.MULT $$63 factor 
-	termino:  termino.DIVIDE $$65 factor 
+	exp:  termino.    (64)
+	termino:  termino.MULT $$65 factor 
+	termino:  termino.DIVIDE $$67 factor 
 
 	MULT  shift 84
 	DIVIDE  shift 85
-	.  reduce 62 (src line 284)
+	.  reduce 64 (src line 301)
 
 
 state 57
-	termino:  factor.    (67)
+	termino:  factor.    (69)
 
-	.  reduce 67 (src line 310)
+	.  reduce 69 (src line 327)
 
 
 state 58
@@ -568,34 +558,34 @@ state 60
 
 state 61
 	llamada:  ID.PAR_IZQ argumentos PAR_DER 
-	factor:  ID.    (71)
+	factor:  ID.    (73)
 
 	PAR_IZQ  shift 47
-	.  reduce 71 (src line 329)
+	.  reduce 73 (src line 346)
 
 
 state 62
-	factor:  cte.    (72)
+	factor:  cte.    (74)
 
-	.  reduce 72 (src line 335)
+	.  reduce 74 (src line 352)
 
 
 state 63
-	factor:  llamada.    (73)
+	factor:  llamada.    (75)
 
-	.  reduce 73 (src line 339)
+	.  reduce 75 (src line 356)
 
 
 state 64
-	cte:  CTE_ENT.    (74)
+	cte:  CTE_ENT.    (76)
 
-	.  reduce 74 (src line 345)
+	.  reduce 76 (src line 362)
 
 
 state 65
-	cte:  CTE_FLOT.    (75)
+	cte:  CTE_FLOT.    (77)
 
-	.  reduce 75 (src line 351)
+	.  reduce 77 (src line 368)
 
 
 state 66
@@ -607,10 +597,10 @@ state 66
 
 state 67
 	argumentos:  expresion.argumentos_prima 
-	argumentos_prima: .    (42)
+	argumentos_prima: .    (44)
 
 	COMA  shift 91
-	.  reduce 42 (src line 194)
+	.  reduce 44 (src line 211)
 
 	argumentos_prima  goto 90
 
@@ -622,11 +612,22 @@ state 68
 
 
 state 69
-	ciclo:  MIENTRAS PAR_IZQ expresion.PAR_DER $$36 HAZ cuerpo PUNTOCOMA 
+	ciclo:  MIENTRAS $$37 PAR_IZQ.expresion PAR_DER $$38 HAZ cuerpo PUNTOCOMA 
 
-	PAR_DER  shift 93
+	ID  shift 61
+	CTE_ENT  shift 64
+	CTE_FLOT  shift 65
+	MAS  shift 59
+	MENOS  shift 60
+	PAR_IZQ  shift 58
 	.  error
 
+	expresion  goto 93
+	exp  goto 55
+	termino  goto 56
+	factor  goto 57
+	cte  goto 62
+	llamada  goto 63
 
 state 70
 	imprime:  ESCRIBE PAR_IZQ imprime_args.PAR_DER PUNTOCOMA 
@@ -637,23 +638,23 @@ state 70
 
 state 71
 	imprime_args:  imprime_val.imprime_args_prima 
-	imprime_args_prima: .    (46)
+	imprime_args_prima: .    (48)
 
 	COMA  shift 96
-	.  reduce 46 (src line 207)
+	.  reduce 48 (src line 224)
 
 	imprime_args_prima  goto 95
 
 state 72
-	imprime_val:  expresion.    (47)
+	imprime_val:  expresion.    (49)
 
-	.  reduce 47 (src line 210)
+	.  reduce 49 (src line 227)
 
 
 state 73
-	imprime_val:  LETRERO.    (48)
+	imprime_val:  LETRERO.    (50)
 
-	.  reduce 48 (src line 216)
+	.  reduce 50 (src line 233)
 
 
 state 74
@@ -685,68 +686,68 @@ state 77
 
 
 state 78
-	expresion:  exp MAYOR.$$50 exp 
-	$$50: .    (50)
-
-	.  reduce 50 (src line 227)
-
-	$$50  goto 99
-
-state 79
-	expresion:  exp MENOR.$$52 exp 
+	expresion:  exp MAYOR.$$52 exp 
 	$$52: .    (52)
 
-	.  reduce 52 (src line 236)
+	.  reduce 52 (src line 244)
 
-	$$52  goto 100
+	$$52  goto 99
 
-state 80
-	expresion:  exp DIF.$$54 exp 
+state 79
+	expresion:  exp MENOR.$$54 exp 
 	$$54: .    (54)
 
-	.  reduce 54 (src line 245)
+	.  reduce 54 (src line 253)
 
-	$$54  goto 101
+	$$54  goto 100
 
-state 81
-	expresion:  exp IGUAL.$$56 exp 
+state 80
+	expresion:  exp DIF.$$56 exp 
 	$$56: .    (56)
 
-	.  reduce 56 (src line 254)
+	.  reduce 56 (src line 262)
 
-	$$56  goto 102
+	$$56  goto 101
 
-state 82
-	exp:  exp MAS.$$58 termino 
+state 81
+	expresion:  exp IGUAL.$$58 exp 
 	$$58: .    (58)
 
-	.  reduce 58 (src line 265)
+	.  reduce 58 (src line 271)
 
-	$$58  goto 103
+	$$58  goto 102
 
-state 83
-	exp:  exp MENOS.$$60 termino 
+state 82
+	exp:  exp MAS.$$60 termino 
 	$$60: .    (60)
 
-	.  reduce 60 (src line 275)
+	.  reduce 60 (src line 282)
 
-	$$60  goto 104
+	$$60  goto 103
+
+state 83
+	exp:  exp MENOS.$$62 termino 
+	$$62: .    (62)
+
+	.  reduce 62 (src line 292)
+
+	$$62  goto 104
 
 state 84
-	termino:  termino MULT.$$63 factor 
-	$$63: .    (63)
-
-	.  reduce 63 (src line 291)
-
-	$$63  goto 105
-
-state 85
-	termino:  termino DIVIDE.$$65 factor 
+	termino:  termino MULT.$$65 factor 
 	$$65: .    (65)
 
-	.  reduce 65 (src line 301)
+	.  reduce 65 (src line 308)
 
-	$$65  goto 106
+	$$65  goto 105
+
+state 85
+	termino:  termino DIVIDE.$$67 factor 
+	$$67: .    (67)
+
+	.  reduce 67 (src line 318)
+
+	$$67  goto 106
 
 state 86
 	factor:  PAR_IZQ expresion.PAR_DER 
@@ -756,27 +757,27 @@ state 86
 
 
 state 87
-	factor:  MAS factor.    (69)
+	factor:  MAS factor.    (71)
 
-	.  reduce 69 (src line 321)
+	.  reduce 71 (src line 338)
 
 
 state 88
-	factor:  MENOS factor.    (70)
+	factor:  MENOS factor.    (72)
 
-	.  reduce 70 (src line 325)
+	.  reduce 72 (src line 342)
 
 
 state 89
-	llamada:  ID PAR_IZQ argumentos PAR_DER.    (38)
+	llamada:  ID PAR_IZQ argumentos PAR_DER.    (40)
 
-	.  reduce 38 (src line 183)
+	.  reduce 40 (src line 200)
 
 
 state 90
-	argumentos:  expresion argumentos_prima.    (39)
+	argumentos:  expresion argumentos_prima.    (41)
 
-	.  reduce 39 (src line 187)
+	.  reduce 41 (src line 204)
 
 
 state 91
@@ -806,12 +807,11 @@ state 92
 	$$32  goto 109
 
 state 93
-	ciclo:  MIENTRAS PAR_IZQ expresion PAR_DER.$$36 HAZ cuerpo PUNTOCOMA 
-	$$36: .    (36)
+	ciclo:  MIENTRAS $$37 PAR_IZQ expresion.PAR_DER $$38 HAZ cuerpo PUNTOCOMA 
 
-	.  reduce 36 (src line 175)
+	PAR_DER  shift 110
+	.  error
 
-	$$36  goto 110
 
 state 94
 	imprime:  ESCRIBE PAR_IZQ imprime_args PAR_DER.PUNTOCOMA 
@@ -821,9 +821,9 @@ state 94
 
 
 state 95
-	imprime_args:  imprime_val imprime_args_prima.    (44)
+	imprime_args:  imprime_val imprime_args_prima.    (46)
 
-	.  reduce 44 (src line 201)
+	.  reduce 46 (src line 218)
 
 
 state 96
@@ -864,7 +864,7 @@ state 98
 	$$17  goto 114
 
 state 99
-	expresion:  exp MAYOR $$50.exp 
+	expresion:  exp MAYOR $$52.exp 
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -881,7 +881,7 @@ state 99
 	llamada  goto 63
 
 state 100
-	expresion:  exp MENOR $$52.exp 
+	expresion:  exp MENOR $$54.exp 
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -898,7 +898,7 @@ state 100
 	llamada  goto 63
 
 state 101
-	expresion:  exp DIF $$54.exp 
+	expresion:  exp DIF $$56.exp 
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -915,7 +915,7 @@ state 101
 	llamada  goto 63
 
 state 102
-	expresion:  exp IGUAL $$56.exp 
+	expresion:  exp IGUAL $$58.exp 
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -932,7 +932,7 @@ state 102
 	llamada  goto 63
 
 state 103
-	exp:  exp MAS $$58.termino 
+	exp:  exp MAS $$60.termino 
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -948,7 +948,7 @@ state 103
 	llamada  goto 63
 
 state 104
-	exp:  exp MENOS $$60.termino 
+	exp:  exp MENOS $$62.termino 
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -964,7 +964,7 @@ state 104
 	llamada  goto 63
 
 state 105
-	termino:  termino MULT $$63.factor 
+	termino:  termino MULT $$65.factor 
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -979,7 +979,7 @@ state 105
 	llamada  goto 63
 
 state 106
-	termino:  termino DIVIDE $$65.factor 
+	termino:  termino DIVIDE $$67.factor 
 
 	ID  shift 61
 	CTE_ENT  shift 64
@@ -994,17 +994,17 @@ state 106
 	llamada  goto 63
 
 state 107
-	factor:  PAR_IZQ expresion PAR_DER.    (68)
+	factor:  PAR_IZQ expresion PAR_DER.    (70)
 
-	.  reduce 68 (src line 316)
+	.  reduce 70 (src line 333)
 
 
 state 108
 	argumentos_prima:  COMA expresion.argumentos_prima 
-	argumentos_prima: .    (42)
+	argumentos_prima: .    (44)
 
 	COMA  shift 91
-	.  reduce 42 (src line 194)
+	.  reduce 44 (src line 211)
 
 	argumentos_prima  goto 123
 
@@ -1017,24 +1017,25 @@ state 109
 	cuerpo  goto 124
 
 state 110
-	ciclo:  MIENTRAS PAR_IZQ expresion PAR_DER $$36.HAZ cuerpo PUNTOCOMA 
+	ciclo:  MIENTRAS $$37 PAR_IZQ expresion PAR_DER.$$38 HAZ cuerpo PUNTOCOMA 
+	$$38: .    (38)
 
-	HAZ  shift 125
-	.  error
+	.  reduce 38 (src line 190)
 
+	$$38  goto 125
 
 state 111
-	imprime:  ESCRIBE PAR_IZQ imprime_args PAR_DER PUNTOCOMA.    (43)
+	imprime:  ESCRIBE PAR_IZQ imprime_args PAR_DER PUNTOCOMA.    (45)
 
-	.  reduce 43 (src line 197)
+	.  reduce 45 (src line 214)
 
 
 state 112
 	imprime_args_prima:  COMA imprime_val.imprime_args_prima 
-	imprime_args_prima: .    (46)
+	imprime_args_prima: .    (48)
 
 	COMA  shift 96
-	.  reduce 46 (src line 207)
+	.  reduce 48 (src line 224)
 
 	imprime_args_prima  goto 126
 
@@ -1056,104 +1057,103 @@ state 114
 	params_prima  goto 128
 
 state 115
-	expresion:  exp MAYOR $$50 exp.    (51)
-	exp:  exp.MAS $$58 termino 
-	exp:  exp.MENOS $$60 termino 
+	expresion:  exp MAYOR $$52 exp.    (53)
+	exp:  exp.MAS $$60 termino 
+	exp:  exp.MENOS $$62 termino 
 
 	MAS  shift 82
 	MENOS  shift 83
-	.  reduce 51 (src line 231)
+	.  reduce 53 (src line 248)
 
 
 state 116
-	expresion:  exp MENOR $$52 exp.    (53)
-	exp:  exp.MAS $$58 termino 
-	exp:  exp.MENOS $$60 termino 
+	expresion:  exp MENOR $$54 exp.    (55)
+	exp:  exp.MAS $$60 termino 
+	exp:  exp.MENOS $$62 termino 
 
 	MAS  shift 82
 	MENOS  shift 83
-	.  reduce 53 (src line 240)
+	.  reduce 55 (src line 257)
 
 
 state 117
-	expresion:  exp DIF $$54 exp.    (55)
-	exp:  exp.MAS $$58 termino 
-	exp:  exp.MENOS $$60 termino 
+	expresion:  exp DIF $$56 exp.    (57)
+	exp:  exp.MAS $$60 termino 
+	exp:  exp.MENOS $$62 termino 
 
 	MAS  shift 82
 	MENOS  shift 83
-	.  reduce 55 (src line 249)
+	.  reduce 57 (src line 266)
 
 
 state 118
-	expresion:  exp IGUAL $$56 exp.    (57)
-	exp:  exp.MAS $$58 termino 
-	exp:  exp.MENOS $$60 termino 
+	expresion:  exp IGUAL $$58 exp.    (59)
+	exp:  exp.MAS $$60 termino 
+	exp:  exp.MENOS $$62 termino 
 
 	MAS  shift 82
 	MENOS  shift 83
-	.  reduce 57 (src line 258)
+	.  reduce 59 (src line 275)
 
 
 state 119
-	exp:  exp MAS $$58 termino.    (59)
-	termino:  termino.MULT $$63 factor 
-	termino:  termino.DIVIDE $$65 factor 
+	exp:  exp MAS $$60 termino.    (61)
+	termino:  termino.MULT $$65 factor 
+	termino:  termino.DIVIDE $$67 factor 
 
 	MULT  shift 84
 	DIVIDE  shift 85
-	.  reduce 59 (src line 270)
+	.  reduce 61 (src line 287)
 
 
 state 120
-	exp:  exp MENOS $$60 termino.    (61)
-	termino:  termino.MULT $$63 factor 
-	termino:  termino.DIVIDE $$65 factor 
+	exp:  exp MENOS $$62 termino.    (63)
+	termino:  termino.MULT $$65 factor 
+	termino:  termino.DIVIDE $$67 factor 
 
 	MULT  shift 84
 	DIVIDE  shift 85
-	.  reduce 61 (src line 279)
+	.  reduce 63 (src line 296)
 
 
 state 121
-	termino:  termino MULT $$63 factor.    (64)
+	termino:  termino MULT $$65 factor.    (66)
 
-	.  reduce 64 (src line 296)
+	.  reduce 66 (src line 313)
 
 
 state 122
-	termino:  termino DIVIDE $$65 factor.    (66)
+	termino:  termino DIVIDE $$67 factor.    (68)
 
-	.  reduce 66 (src line 305)
+	.  reduce 68 (src line 322)
 
 
 state 123
-	argumentos_prima:  COMA expresion argumentos_prima.    (41)
+	argumentos_prima:  COMA expresion argumentos_prima.    (43)
 
-	.  reduce 41 (src line 192)
+	.  reduce 43 (src line 209)
 
 
 state 124
 	condicion:  SI PAR_IZQ expresion PAR_DER $$32 cuerpo.sino_opc PUNTOCOMA 
-	sino_opc: .    (35)
+	sino_opc: .    (36)
 
 	SINO  shift 131
-	.  reduce 35 (src line 172)
+	.  reduce 36 (src line 179)
 
 	sino_opc  goto 130
 
 state 125
-	ciclo:  MIENTRAS PAR_IZQ expresion PAR_DER $$36 HAZ.cuerpo PUNTOCOMA 
+	ciclo:  MIENTRAS $$37 PAR_IZQ expresion PAR_DER $$38.HAZ cuerpo PUNTOCOMA 
 
-	LLAVE_IZQ  shift 24
+	HAZ  shift 132
 	.  error
 
-	cuerpo  goto 132
 
 state 126
-	imprime_args_prima:  COMA imprime_val imprime_args_prima.    (45)
+	imprime_args_prima:  COMA imprime_val imprime_args_prima.    (47)
 
-	.  reduce 45 (src line 205)
+	.  reduce 47 (src line 222)
 
 
 state 127
@@ -1184,19 +1184,20 @@ state 130
 
 
 state 131
-	sino_opc:  SINO.cuerpo 
+	sino_opc:  SINO.$$34 cuerpo 
+	$$34: .    (34)
+
+	.  reduce 34 (src line 170)
+
+	$$34  goto 136
+
+state 132
+	ciclo:  MIENTRAS $$37 PAR_IZQ expresion PAR_DER $$38 HAZ.cuerpo PUNTOCOMA 
 
 	LLAVE_IZQ  shift 24
 	.  error
 
-	cuerpo  goto 136
-
-state 132
-	ciclo:  MIENTRAS PAR_IZQ expresion PAR_DER $$36 HAZ cuerpo.PUNTOCOMA 
-
-	PUNTOCOMA  shift 137
-	.  error
-
+	cuerpo  goto 137
 
 state 133
 	func:  tipo_retorno ID $$13 PAR_IZQ params PAR_DER LLAVE_IZQ vars cuerpo LLAVE_DER.PUNTOCOMA 
@@ -1219,15 +1220,18 @@ state 135
 
 
 state 136
-	sino_opc:  SINO cuerpo.    (34)
+	sino_opc:  SINO $$34.cuerpo 
 
-	.  reduce 34 (src line 170)
+	LLAVE_IZQ  shift 24
+	.  error
 
+	cuerpo  goto 140
 
 state 137
-	ciclo:  MIENTRAS PAR_IZQ expresion PAR_DER $$36 HAZ cuerpo PUNTOCOMA.    (37)
+	ciclo:  MIENTRAS $$37 PAR_IZQ expresion PAR_DER $$38 HAZ cuerpo.PUNTOCOMA 
 
-	.  reduce 37 (src line 180)
+	PUNTOCOMA  shift 141
+	.  error
 
 
 state 138
@@ -1243,40 +1247,52 @@ state 139
 	FLOTANTE  shift 14
 	.  error
 
-	tipo  goto 140
+	tipo  goto 142
 
 state 140
+	sino_opc:  SINO $$34 cuerpo.    (35)
+
+	.  reduce 35 (src line 175)
+
+
+state 141
+	ciclo:  MIENTRAS $$37 PAR_IZQ expresion PAR_DER $$38 HAZ cuerpo PUNTOCOMA.    (39)
+
+	.  reduce 39 (src line 194)
+
+
+state 142
 	params_prima:  COMA ID DOSPUNTOS tipo.$$20 params_prima 
 	$$20: .    (20)
 
 	.  reduce 20 (src line 126)
 
-	$$20  goto 141
+	$$20  goto 143
 
-state 141
+state 143
 	params_prima:  COMA ID DOSPUNTOS tipo $$20.params_prima 
 	params_prima: .    (22)
 
 	COMA  shift 129
 	.  reduce 22 (src line 132)
 
-	params_prima  goto 142
+	params_prima  goto 144
 
-state 142
+state 144
 	params_prima:  COMA ID DOSPUNTOS tipo $$20 params_prima.    (21)
 
 	.  reduce 21 (src line 131)
 
 
-37 terminals, 45 nonterminals
-76 grammar rules, 143/16000 states
+37 terminals, 47 nonterminals
+78 grammar rules, 145/16000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
-94 working sets used
+96 working sets used
 memory: parser 161/240000
 15 extra closures
 204 shift entries, 1 exceptions
-78 goto entries
+80 goto entries
 74 entries saved by goto default
-Optimizer space used: output 154/240000
-154 table entries, 0 zero
-maximum spread: 35, maximum offset: 141
+Optimizer space used: output 156/240000
+156 table entries, 0 zero
+maximum spread: 35, maximum offset: 143
