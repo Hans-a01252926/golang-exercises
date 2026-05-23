@@ -152,7 +152,10 @@ estatuto:
 asigna:
 	ID ASIGNA expresion PUNTOCOMA
 	{
+		varType := yylex.(*PatitoLexer).Sem.GetVarType($1)
+
 		yylex.(*PatitoLexer).Sem.CheckAssignment($1, $3)
+		yylex.(*PatitoLexer).Gen.GenerateAssignment($1, varType)
 	}
 	;
 
@@ -206,40 +209,77 @@ imprime_args_prima:
 
 imprime_val:
 	expresion
+	{
+		value := yylex.(*PatitoLexer).Gen.PopOperandForPrint()
+		yylex.(*PatitoLexer).Gen.GeneratePrint(value)
+	}
 	| LETRERO
+	{
+		yylex.(*PatitoLexer).Gen.GeneratePrint($1)
+	}
 	;
-
+	
 expresion:
 	exp
 	{
 		$$ = $1
 	}
-	| exp MAYOR exp
+	| exp MAYOR
 	{
-		$$ = yylex.(*PatitoLexer).Sem.CheckOperation($1, semantic.OpMayor, $3)
+		yylex.(*PatitoLexer).Gen.PushOperator(">")
 	}
-	| exp MENOR exp
+	exp
 	{
-		$$ = yylex.(*PatitoLexer).Sem.CheckOperation($1, semantic.OpMenor, $3)
+		yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+		$$ = yylex.(*PatitoLexer).Gen.PeekType()
 	}
-	| exp DIF exp
+	| exp MENOR
 	{
-		$$ = yylex.(*PatitoLexer).Sem.CheckOperation($1, semantic.OpDif, $3)
+		yylex.(*PatitoLexer).Gen.PushOperator("<")
 	}
-	| exp IGUAL exp
+	exp
 	{
-		$$ = yylex.(*PatitoLexer).Sem.CheckOperation($1, semantic.OpIgual, $3)
+		yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+		$$ = yylex.(*PatitoLexer).Gen.PeekType()
+	}
+	| exp DIF
+	{
+		yylex.(*PatitoLexer).Gen.PushOperator("!=")
+	}
+	exp
+	{
+		yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+		$$ = yylex.(*PatitoLexer).Gen.PeekType()
+	}
+	| exp IGUAL
+	{
+		yylex.(*PatitoLexer).Gen.PushOperator("==")
+	}
+	exp
+	{
+		yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+		$$ = yylex.(*PatitoLexer).Gen.PeekType()
 	}
 	;
 
 exp:
-	exp MAS termino
+	exp MAS
 	{
-		$$ = yylex.(*PatitoLexer).Sem.CheckOperation($1, semantic.OpSuma, $3)
+		yylex.(*PatitoLexer).Gen.PushOperator("+")
 	}
-	| exp MENOS termino
+	termino
 	{
-		$$ = yylex.(*PatitoLexer).Sem.CheckOperation($1, semantic.OpResta, $3)
+		yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+		$$ = yylex.(*PatitoLexer).Gen.PeekType()
+	}
+	| exp MENOS
+	{
+		yylex.(*PatitoLexer).Gen.PushOperator("-")
+	}
+	termino
+	{
+		yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+		$$ = yylex.(*PatitoLexer).Gen.PeekType()
 	}
 	| termino
 	{
@@ -249,13 +289,23 @@ exp:
 
 
 termino:
-	termino MULT factor
+	termino MULT
 	{
-		$$ = yylex.(*PatitoLexer).Sem.CheckOperation($1, semantic.OpMult, $3)
+		yylex.(*PatitoLexer).Gen.PushOperator("*")
 	}
-	| termino DIVIDE factor
+	factor
 	{
-		$$ = yylex.(*PatitoLexer).Sem.CheckOperation($1, semantic.OpDiv, $3)
+		yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+		$$ = yylex.(*PatitoLexer).Gen.PeekType()
+	}
+	| termino DIVIDE
+	{
+		yylex.(*PatitoLexer).Gen.PushOperator("/")
+	}
+	factor
+	{
+		yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+		$$ = yylex.(*PatitoLexer).Gen.PeekType()
 	}
 	| factor
 	{
@@ -278,7 +328,9 @@ factor:
 	}
 	| ID
 	{
-		$$ = yylex.(*PatitoLexer).Sem.GetVarType($1)
+		t := yylex.(*PatitoLexer).Sem.GetVarType($1)
+		yylex.(*PatitoLexer).Gen.PushOperand($1, t)
+		$$ = t
 	}
 	| cte
 	{
@@ -293,10 +345,12 @@ factor:
 cte:
 	CTE_ENT
 	{
+		yylex.(*PatitoLexer).Gen.PushOperand($1, semantic.TypeEntero)
 		$$ = semantic.TypeEntero
 	}
 	| CTE_FLOT
 	{
+		yylex.(*PatitoLexer).Gen.PushOperand($1, semantic.TypeFlotante)
 		$$ = semantic.TypeFlotante
 	}
 	;

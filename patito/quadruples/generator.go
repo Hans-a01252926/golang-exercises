@@ -104,3 +104,23 @@ func (g *Generator) GenerateAssignment(varName string, varType semantic.Type) {
 func (g *Generator) GeneratePrint(value string) {
 	g.AddQuad("print", value, "_", "_")
 }
+
+func (g *Generator) PeekType() semantic.Type {
+	t, ok := g.Types.Peek()
+	if !ok {
+		return semantic.TypeError
+	}
+	return t
+}
+
+func (g *Generator) PopOperandForPrint() string {
+	value, ok1 := g.Operands.Pop()
+	_, ok2 := g.Types.Pop()
+
+	if !ok1 || !ok2 {
+		g.AddError("no hay valor para imprimir")
+		return "_"
+	}
+
+	return value
+}
