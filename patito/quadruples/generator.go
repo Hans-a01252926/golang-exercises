@@ -7,10 +7,11 @@ import (
 )
 
 type Generator struct {
-	Operators  *Stack[string]
-	Operands   *Stack[string]
-	Types      *Stack[semantic.Type]
-	Quadruples []Quadruple
+	Operators    *Stack[string]
+	Operands     *Stack[string]
+	Types        *Stack[semantic.Type]
+	PendingJumps *Stack[int]
+	Quadruples   []Quadruple
 
 	tempCounter int
 	Cube        semantic.SemanticCube
@@ -19,13 +20,14 @@ type Generator struct {
 
 func NewGenerator(cube semantic.SemanticCube) *Generator {
 	return &Generator{
-		Operators:   NewStack[string](),
-		Operands:    NewStack[string](),
-		Types:       NewStack[semantic.Type](),
-		Quadruples:  []Quadruple{},
-		tempCounter: 0,
-		Cube:        cube,
-		Errors:      []string{},
+		Operators:    NewStack[string](),
+		Operands:     NewStack[string](),
+		Types:        NewStack[semantic.Type](),
+		PendingJumps: NewStack[int](),
+		Quadruples:   []Quadruple{},
+		tempCounter:  0,
+		Cube:         cube,
+		Errors:       []string{},
 	}
 }
 
@@ -64,14 +66,14 @@ func (g *Generator) GenerateBinaryOperation() {
 	operator, ok5 := g.Operators.Pop()
 
 	if !ok1 || !ok2 || !ok3 || !ok4 || !ok5 {
-		g.AddError("no hay suficientes elementos para generar operación")
+		g.AddError("No hay suficientes elementos para generar operación")
 		return
 	}
 
 	resultType := g.Cube.Result(leftType, semantic.Operator(operator), rightType)
 
 	if resultType == semantic.TypeError {
-		g.AddError(fmt.Sprintf("operación inválida: %s %s %s", leftType, operator, rightType))
+		g.AddError(fmt.Sprintf("Operación inválida: %s %s %s", leftType, operator, rightType))
 		return
 	}
 
@@ -87,14 +89,14 @@ func (g *Generator) GenerateAssignment(varName string, varType semantic.Type) {
 	exprType, ok2 := g.Types.Pop()
 
 	if !ok1 || !ok2 {
-		g.AddError("no hay expresión para asignar")
+		g.AddError("No hay expresión para asignar")
 		return
 	}
 
 	resultType := g.Cube.Result(varType, semantic.OpAsigna, exprType)
 
 	if resultType == semantic.TypeError {
-		g.AddError(fmt.Sprintf("asignación incompatible: no se puede asignar %s a %s", exprType, varType))
+		g.AddError(fmt.Sprintf("Asignación incompatible: No se puede asignar %s a %s", exprType, varType))
 		return
 	}
 
@@ -118,9 +120,112 @@ func (g *Generator) PopOperandForPrint() string {
 	_, ok2 := g.Types.Pop()
 
 	if !ok1 || !ok2 {
-		g.AddError("no hay valor para imprimir")
+		g.AddError("No hay valor para imprimir")
 		return "_"
 	}
 
 	return value
+}
+
+func (g *Generator) NextQuad() int {
+	return len(g.Quadruples)
+}
+
+func (g *Generator) Fill(index int, destination int) {
+	if index < 0 || index >= len(g.Quadruples) {
+		g.AddError(fmt.Sprintf("Índice de cuádruplo inválido para fill: %d", index))
+		return
+	}
+
+	g.Quadruples[index].Result = fmt.Sprintf("%d", destination)
+}
+
+func (g *Generator) StartIf() {
+	expr, ok1 := g.Operands.Pop()
+	exprType, ok2 := g.Types.Pop()
+
+	if !ok1 || !ok2 {
+		g.AddError("No hay expresión para condición")
+		return
+	}
+
+	if exprType != semantic.TypeBool {
+		g.AddError(fmt.Sprintf("Condición inválida: se esperaba bool y se obtuvo %s", exprType))
+		return
+	}
+
+	g.AddQuad("GOTOF", expr, "_", "_")
+	g.PendingJumps.Push(g.NextQuad() - 1)
+}
+
+func (g *Generator) EndIf() {
+	end, ok := g.PendingJumps.Pop()
+	if !ok {
+		g.AddError("No hay salto pendiente para cerrar si")
+		return
+	}
+
+	g.Fill(end, g.NextQuad())
+}
+
+func (g *Generator) ElseIf() {
+	// Generar salto para brincar el bloque falso después del bloque verdadero
+	g.AddQuad("GOTO", "_", "_", "_")
+
+	falseJump, ok := g.PendingJumps.Pop()
+	if !ok {
+		g.AddError("No hay salto falso pendiente para sino")
+		return
+	}
+
+	// Guardar el GOTO pendiente de rellenar al final del sino
+	g.PendingJumps.Push(g.NextQuad() - 1)
+
+	// El GOTOF debe brincar al inicio del bloque sino
+	g.Fill(falseJump, g.NextQuad())
+}
+
+func (g *Generator) EndIfElse() {
+	endJump, ok := g.PendingJumps.Pop()
+	if !ok {
+		g.AddError("No hay salto pendiente para cerrar sino")
+		return
+	}
+
+	g.Fill(endJump, g.NextQuad())
+}
+
+func (g *Generator) StartWhile() {
+	g.PendingJumps.Push(g.NextQuad())
+}
+
+func (g *Generator) WhileCondition() {
+	expr, ok1 := g.Operands.Pop()
+	exprType, ok2 := g.Types.Pop()
+
+	if !ok1 || !ok2 {
+		g.AddError("No hay expresión para condición de mientras")
+		return
+	}
+
+	if exprType != semantic.TypeBool {
+		g.AddError(fmt.Sprintf("Condición inválida en mientras: se esperaba bool y se obtuvo %s", exprType))
+		return
+	}
+
+	g.AddQuad("GOTOF", expr, "_", "_")
+	g.PendingJumps.Push(g.NextQuad() - 1)
+}
+
+func (g *Generator) EndWhile() {
+	falseJump, ok1 := g.PendingJumps.Pop()
+	returnJump, ok2 := g.PendingJumps.Pop()
+
+	if !ok1 || !ok2 {
+		g.AddError("Saltos pendientes insuficientes para cerrar mientras")
+		return
+	}
+
+	g.AddQuad("GOTO", "_", "_", fmt.Sprintf("%d", returnJump))
+	g.Fill(falseJump, g.NextQuad())
 }
