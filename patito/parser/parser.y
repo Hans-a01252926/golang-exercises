@@ -162,22 +162,39 @@ asigna:
 condicion:
 	SI PAR_IZQ expresion PAR_DER
 	{
-		yylex.(*PatitoLexer).Sem.CheckCondition($3)
+		yylex.(*PatitoLexer).Gen.StartIf()
 	}
 	cuerpo sino_opc PUNTOCOMA
 	;
 
 sino_opc:
-	SINO cuerpo
+	SINO
+	{
+		yylex.(*PatitoLexer).Gen.ElseIf()
+	}
+	cuerpo
+	{
+		yylex.(*PatitoLexer).Gen.EndIfElse()
+	}
 	| /* empty */
+	{
+		yylex.(*PatitoLexer).Gen.EndIf()
+	}
 	;
 
 ciclo:
-	MIENTRAS PAR_IZQ expresion PAR_DER
+	MIENTRAS
 	{
-		yylex.(*PatitoLexer).Sem.CheckCondition($3)
+		yylex.(*PatitoLexer).Gen.StartWhile()
+	}
+	PAR_IZQ expresion PAR_DER
+	{
+		yylex.(*PatitoLexer).Gen.WhileCondition()
 	}
 	HAZ cuerpo PUNTOCOMA
+	{
+		yylex.(*PatitoLexer).Gen.EndWhile()
+	}
 	;
 
 llamada:
@@ -218,7 +235,7 @@ imprime_val:
 		yylex.(*PatitoLexer).Gen.GeneratePrint($1)
 	}
 	;
-	
+
 expresion:
 	exp
 	{
