@@ -1,0 +1,12 @@
+programa prueba;
+
+vars x, y : entero;
+
+inicio {
+	x = 0;
+	y = 3;
+
+	mientras (x < y) haz {
+		x = x + 1;
+	};
+} fin
