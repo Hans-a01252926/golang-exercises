@@ -1,0 +1,9 @@
+programa prueba;
+
+vars x, y, z : entero;
+
+inicio {
+	x = 2;
+	y = 3;
+	z = x + y * 5;
+} fin
