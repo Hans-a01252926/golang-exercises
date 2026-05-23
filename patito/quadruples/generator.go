@@ -55,3 +55,52 @@ func (g *Generator) PushOperand(operand string, typ semantic.Type) {
 func (g *Generator) PushOperator(op string) {
 	g.Operators.Push(op)
 }
+
+func (g *Generator) GenerateBinaryOperation() {
+	rightOperand, ok1 := g.Operands.Pop()
+	rightType, ok2 := g.Types.Pop()
+	leftOperand, ok3 := g.Operands.Pop()
+	leftType, ok4 := g.Types.Pop()
+	operator, ok5 := g.Operators.Pop()
+
+	if !ok1 || !ok2 || !ok3 || !ok4 || !ok5 {
+		g.AddError("no hay suficientes elementos para generar operación")
+		return
+	}
+
+	resultType := g.Cube.Result(leftType, semantic.Operator(operator), rightType)
+
+	if resultType == semantic.TypeError {
+		g.AddError(fmt.Sprintf("operación inválida: %s %s %s", leftType, operator, rightType))
+		return
+	}
+
+	temp := g.NewTemp()
+	g.AddQuad(operator, leftOperand, rightOperand, temp)
+
+	g.Operands.Push(temp)
+	g.Types.Push(resultType)
+}
+
+func (g *Generator) GenerateAssignment(varName string, varType semantic.Type) {
+	exprOperand, ok1 := g.Operands.Pop()
+	exprType, ok2 := g.Types.Pop()
+
+	if !ok1 || !ok2 {
+		g.AddError("no hay expresión para asignar")
+		return
+	}
+
+	resultType := g.Cube.Result(varType, semantic.OpAsigna, exprType)
+
+	if resultType == semantic.TypeError {
+		g.AddError(fmt.Sprintf("asignación incompatible: no se puede asignar %s a %s", exprType, varType))
+		return
+	}
+
+	g.AddQuad("=", exprOperand, "_", varName)
+}
+
+func (g *Generator) GeneratePrint(value string) {
+	g.AddQuad("print", value, "_", "_")
+}

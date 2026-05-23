@@ -19,7 +19,7 @@ func main() {
 		return
 	}
 
-	l := parser.NewPatitoLexer(string(content)) // Este es tu adaptador lexer -> parser
+	l := parser.NewPatitoLexer(string(content)) // Este es el adaptador lexer -> parser
 	result := parser.Parse(l)                   // Esta es la función Parse generada por goyacc
 
 	if result == 0 && len(l.Errors) == 0 && len(l.Sem.Errors) == 0 {
