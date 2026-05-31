@@ -1,9 +1,7 @@
-package memory
+package memoria
 
 import (
 	"fmt"
-
-	"patito/semantic"
 )
 
 type Address int
@@ -63,17 +61,17 @@ func NewAddressAllocator() *AddressAllocator {
 	}
 }
 
-func (a *AddressAllocator) AllocateGlobal(t semantic.Type) (Address, error) {
+func (a *AddressAllocator) AllocateGlobal(t string) (Address, error) {
 	switch t {
-	case semantic.TypeEntero:
+	case "entero":
 		addr := a.nextGlobalInt
 		a.nextGlobalInt++
 		return addr, nil
-	case semantic.TypeFlotante:
+	case "flotante":
 		addr := a.nextGlobalFloat
 		a.nextGlobalFloat++
 		return addr, nil
-	case semantic.TypeString:
+	case "string":
 		addr := a.nextGlobalString
 		a.nextGlobalString++
 		return addr, nil
@@ -82,17 +80,17 @@ func (a *AddressAllocator) AllocateGlobal(t semantic.Type) (Address, error) {
 	}
 }
 
-func (a *AddressAllocator) AllocateLocal(t semantic.Type) (Address, error) {
+func (a *AddressAllocator) AllocateLocal(t string) (Address, error) {
 	switch t {
-	case semantic.TypeEntero:
+	case "entero":
 		addr := a.nextLocalInt
 		a.nextLocalInt++
 		return addr, nil
-	case semantic.TypeFlotante:
+	case "flotante":
 		addr := a.nextLocalFloat
 		a.nextLocalFloat++
 		return addr, nil
-	case semantic.TypeString:
+	case "string":
 		addr := a.nextLocalString
 		a.nextLocalString++
 		return addr, nil
@@ -101,17 +99,17 @@ func (a *AddressAllocator) AllocateLocal(t semantic.Type) (Address, error) {
 	}
 }
 
-func (a *AddressAllocator) AllocateTemp(t semantic.Type) (Address, error) {
+func (a *AddressAllocator) AllocateTemp(t string) (Address, error) {
 	switch t {
-	case semantic.TypeEntero:
+	case "entero":
 		addr := a.nextTempInt
 		a.nextTempInt++
 		return addr, nil
-	case semantic.TypeFlotante:
+	case "flotante":
 		addr := a.nextTempFloat
 		a.nextTempFloat++
 		return addr, nil
-	case semantic.TypeBool:
+	case "bool":
 		addr := a.nextTempBool
 		a.nextTempBool++
 		return addr, nil
@@ -120,17 +118,17 @@ func (a *AddressAllocator) AllocateTemp(t semantic.Type) (Address, error) {
 	}
 }
 
-func (a *AddressAllocator) AllocateConst(t semantic.Type) (Address, error) {
+func (a *AddressAllocator) AllocateConst(t string) (Address, error) {
 	switch t {
-	case semantic.TypeEntero:
+	case "entero":
 		addr := a.nextConstInt
 		a.nextConstInt++
 		return addr, nil
-	case semantic.TypeFlotante:
+	case "flotante":
 		addr := a.nextConstFloat
 		a.nextConstFloat++
 		return addr, nil
-	case semantic.TypeString:
+	case "string":
 		addr := a.nextConstString
 		a.nextConstString++
 		return addr, nil

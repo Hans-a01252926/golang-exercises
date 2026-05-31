@@ -1,6 +1,9 @@
 package semantic
 
-import "fmt"
+import (
+	"fmt"
+	"patito/memoria"
+)
 
 type SemanticContext struct {
 	DirFunc     *FunctionDirectory
@@ -8,6 +11,9 @@ type SemanticContext struct {
 	CurrentFunc string
 	CurrentType Type
 	Errors      []string
+
+	Allocator *memoria.AddressAllocator
+	Constants *memoria.ConstantsTable
 }
 
 func NewSemanticContext() *SemanticContext {

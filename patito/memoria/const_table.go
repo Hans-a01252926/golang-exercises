@@ -1,14 +1,12 @@
-package memory
+package memoria
 
 import (
 	"fmt"
-
-	"patito/semantic"
 )
 
 type ConstantEntry struct {
 	Literal string
-	Type    semantic.Type
+	Type    string
 	Address Address
 }
 
@@ -24,11 +22,11 @@ func NewConstantsTable(allocator *AddressAllocator) *ConstantsTable {
 	}
 }
 
-func constantKey(literal string, t semantic.Type) string {
+func constantKey(literal string, t string) string {
 	return fmt.Sprintf("%s:%s", t, literal)
 }
 
-func (ct *ConstantsTable) AddConstant(literal string, t semantic.Type) (Address, error) {
+func (ct *ConstantsTable) AddConstant(literal string, t string) (Address, error) {
 	key := constantKey(literal, t)
 
 	if entry, exists := ct.Constants[key]; exists {
