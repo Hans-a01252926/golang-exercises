@@ -7,5 +7,6 @@ const (
 	TypeFlotante Type = "flotante"
 	TypeBool     Type = "bool"
 	TypeNula     Type = "nula"
+	TypeString   Type = "string"
 	TypeError    Type = "error"
 )
