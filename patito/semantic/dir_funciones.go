@@ -11,11 +11,20 @@ type FunctionEntry struct {
 	ReturnType Type
 	Params     []ParamEntry
 	Vars       *VarTable
+
+	localIntCount    int
+	localFloatCount  int
+	localStringCount int
+
+	tempIntCount   int
+	tempFloatCount int
+	tempBoolCount  int
 }
 
 type ParamEntry struct {
-	Name string
-	Type Type
+	Name    string
+	Type    Type
+	Address int
 }
 
 func NewFunctionDirectory() *FunctionDirectory {
@@ -59,7 +68,7 @@ func (fd *FunctionDirectory) AddVarToFunction(funcName string, varName string, v
 		return fmt.Errorf("función no encontrada: %s", funcName)
 	}
 
-	return fn.Vars.AddVar(varName, varType, funcName)
+	return fn.Vars.AddVar(varName, varType, funcName, 0)
 }
 
 func (fd *FunctionDirectory) LookupVar(currentFunc string, varName string) (*VarEntry, bool) {
@@ -76,4 +85,25 @@ func (fd *FunctionDirectory) LookupVar(currentFunc string, varName string) (*Var
 	}
 
 	return nil, false
+}
+
+func (fd *FunctionDirectory) AddParam(funcName string, paramName string, paramType Type, address int) error {
+	fn, ok := fd.Functions[funcName]
+	if !ok {
+		return fmt.Errorf("función no encontrada: %s", funcName)
+	}
+
+	if _, exists := fn.Vars.GetVar(paramName); exists {
+		return fmt.Errorf("parámetro doblemente declarado: %s", paramName)
+	}
+
+	param := ParamEntry{
+		Name:    paramName,
+		Type:    paramType,
+		Address: address,
+	}
+
+	fn.Params = append(fn.Params, param)
+
+	return fn.Vars.AddVar(paramName, paramType, funcName, address)
 }

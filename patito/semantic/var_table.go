@@ -7,9 +7,10 @@ type VarTable struct {
 }
 
 type VarEntry struct {
-	Name  string
-	Type  Type
-	Scope string
+	Name    string
+	Type    Type
+	Scope   string
+	Address int
 }
 
 func NewVarTable() *VarTable {
@@ -18,15 +19,16 @@ func NewVarTable() *VarTable {
 	}
 }
 
-func (vt *VarTable) AddVar(name string, varType Type, scope string) error {
+func (vt *VarTable) AddVar(name string, varType Type, scope string, address int) error {
 	if _, exists := vt.Vars[name]; exists {
 		return fmt.Errorf("variable doblemente declarada: %s", name)
 	}
 
 	vt.Vars[name] = &VarEntry{
-		Name:  name,
-		Type:  varType,
-		Scope: scope,
+		Name:    name,
+		Type:    varType,
+		Scope:   scope,
+		Address: address,
 	}
 
 	return nil
