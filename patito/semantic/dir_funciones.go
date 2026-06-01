@@ -11,6 +11,7 @@ type FunctionEntry struct {
 	ReturnType Type
 	Params     []ParamEntry
 	Vars       *VarTable
+	StartQuad  int
 
 	localIntCount    int
 	localFloatCount  int
@@ -106,4 +107,10 @@ func (fd *FunctionDirectory) AddParam(funcName string, paramName string, paramTy
 	fn.Params = append(fn.Params, param)
 
 	return fn.Vars.AddVar(paramName, paramType, funcName, address)
+}
+
+func (fd *FunctionDirectory) SetFunctionStart(name string, start int) {
+	if fn, ok := fd.Functions[name]; ok {
+		fn.StartQuad = start
+	}
 }

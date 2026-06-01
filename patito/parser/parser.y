@@ -47,7 +47,15 @@ input:
 	;
 
 programa:
-	PROGRAMA ID PUNTOCOMA vars funcs INICIO cuerpo FIN
+	PROGRAMA ID PUNTOCOMA 
+	{
+		yylex.(*PatitoLexer).Gen.GenerateMainGoto()
+	}
+	vars funcs INICIO 
+	{
+		yylex.(*PatitoLexer).Gen.FillMainGoto()
+	}
+	cuerpo FIN
 	;
 
 vars:
@@ -152,10 +160,10 @@ estatuto:
 asigna:
 	ID ASIGNA expresion PUNTOCOMA
 	{
-		varType := yylex.(*PatitoLexer).Sem.GetVarType($1)
+		destAddr, varType := yylex.(*PatitoLexer).Sem.GetVarAddressAndType($1)
 
 		yylex.(*PatitoLexer).Sem.CheckAssignment($1, $3)
-		yylex.(*PatitoLexer).Gen.GenerateAssignment($1, varType)
+		yylex.(*PatitoLexer).Gen.GenerateAssignment(destAddr, varType)
 	}
 	;
 
@@ -231,8 +239,9 @@ imprime_val:
 		yylex.(*PatitoLexer).Gen.GeneratePrint(value)
 	}
 	| LETRERO
-	{
-		yylex.(*PatitoLexer).Gen.GeneratePrint($1)
+	{		
+		addr := yylex.(*PatitoLexer).Sem.AddConstant($1, semantic.TypeString)
+		yylex.(*PatitoLexer).Gen.GeneratePrint(addr)
 	}
 	;
 
@@ -345,8 +354,8 @@ factor:
 	}
 	| ID
 	{
-		t := yylex.(*PatitoLexer).Sem.GetVarType($1)
-		yylex.(*PatitoLexer).Gen.PushOperand($1, t)
+		addr, t := yylex.(*PatitoLexer).Sem.GetVarAddressAndType($1)
+		yylex.(*PatitoLexer).Gen.PushOperand(addr, t)
 		$$ = t
 	}
 	| cte
@@ -362,12 +371,14 @@ factor:
 cte:
 	CTE_ENT
 	{
-		yylex.(*PatitoLexer).Gen.PushOperand($1, semantic.TypeEntero)
+		addr := yylex.(*PatitoLexer).Sem.AddConstant($1, semantic.TypeEntero)
+		yylex.(*PatitoLexer).Gen.PushOperand(addr, semantic.TypeEntero)
 		$$ = semantic.TypeEntero
 	}
 	| CTE_FLOT
-	{
-		yylex.(*PatitoLexer).Gen.PushOperand($1, semantic.TypeFlotante)
+	{		
+		addr := yylex.(*PatitoLexer).Sem.AddConstant($1, semantic.TypeFlotante)
+		yylex.(*PatitoLexer).Gen.PushOperand(addr, semantic.TypeFlotante)
 		$$ = semantic.TypeFlotante
 	}
 	;

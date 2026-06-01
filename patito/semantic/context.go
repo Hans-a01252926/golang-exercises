@@ -115,3 +115,22 @@ func (s *SemanticContext) CheckCondition(exprType Type) {
 		s.AddError(fmt.Sprintf("condición inválida: se esperaba bool y se obtuvo %s", exprType))
 	}
 }
+
+func (s *SemanticContext) AddConstant(literal string, t Type) string {
+	addr, err := s.Constants.AddConstant(literal, string(t))
+	if err != nil {
+		s.AddError(err.Error())
+		return "_"
+	}
+	return fmt.Sprintf("%d", addr)
+}
+
+func (s *SemanticContext) GetVarAddressAndType(name string) (string, Type) {
+	v, ok := s.DirFunc.LookupVar(s.CurrentFunc, name)
+	if !ok {
+		s.AddError(fmt.Sprintf("variable no declarada: %s", name))
+		return "_", TypeError
+	}
+
+	return fmt.Sprintf("%d", v.Address), v.Type
+}

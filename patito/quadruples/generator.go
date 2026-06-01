@@ -236,3 +236,17 @@ func (g *Generator) EndWhile() {
 	g.AddQuad("GOTO", "_", "_", fmt.Sprintf("%d", returnJump))
 	g.Fill(falseJump, g.NextQuad())
 }
+
+func (g *Generator) GenerateMainGoto() {
+	g.AddQuad("GOTO", "_", "_", "_")
+	g.PendingJumps.Push(g.NextQuad() - 1)
+}
+
+func (g *Generator) FillMainGoto() {
+	jump, ok := g.PendingJumps.Pop()
+	if !ok {
+		g.AddError("no hay salto pendiente hacia main")
+		return
+	}
+	g.Fill(jump, g.NextQuad())
+}
