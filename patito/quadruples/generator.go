@@ -250,3 +250,7 @@ func (g *Generator) FillMainGoto() {
 	}
 	g.Fill(jump, g.NextQuad())
 }
+
+func (g *Generator) GenerateEndFunc() {
+	g.AddQuad("ENDFunc", "_", "_", "_")
+}

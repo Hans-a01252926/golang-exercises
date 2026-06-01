@@ -104,9 +104,11 @@ func:
 	tipo_retorno ID
 	{
 		yylex.(*PatitoLexer).Sem.StartFunction($2, $1)
+		yylex.(*PatitoLexer).Sem.SetFunctionStart($2, yylex.(*PatitoLexer).Gen.NextQuad())
 	}
 	PAR_IZQ params PAR_DER LLAVE_IZQ vars cuerpo LLAVE_DER PUNTOCOMA
 	{
+		yylex.(*PatitoLexer).Gen.GenerateEndFunc()
 		yylex.(*PatitoLexer).Sem.EndFunction()
 	}
 	;
