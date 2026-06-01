@@ -3,6 +3,7 @@ package quadruples
 import (
 	"fmt"
 
+	"patito/memoria"
 	"patito/semantic"
 )
 
@@ -15,10 +16,11 @@ type Generator struct {
 
 	tempCounter int
 	Cube        semantic.SemanticCube
+	Allocator   *memoria.AddressAllocator
 	Errors      []string
 }
 
-func NewGenerator(cube semantic.SemanticCube) *Generator {
+func NewGenerator(cube semantic.SemanticCube, allocator *memoria.AddressAllocator) *Generator {
 	return &Generator{
 		Operators:    NewStack[string](),
 		Operands:     NewStack[string](),
@@ -27,13 +29,18 @@ func NewGenerator(cube semantic.SemanticCube) *Generator {
 		Quadruples:   []Quadruple{},
 		tempCounter:  0,
 		Cube:         cube,
+		Allocator:    allocator,
 		Errors:       []string{},
 	}
 }
 
-func (g *Generator) NewTemp() string {
-	g.tempCounter++
-	return fmt.Sprintf("t%d", g.tempCounter)
+func (g *Generator) NewTemp(t semantic.Type) string {
+	addr, err := g.Allocator.AllocateTemp(string(t))
+	if err != nil {
+		g.AddError(err.Error())
+		return "_"
+	}
+	return fmt.Sprintf("%d", addr)
 }
 
 func (g *Generator) AddError(msg string) {
@@ -77,7 +84,7 @@ func (g *Generator) GenerateBinaryOperation() {
 		return
 	}
 
-	temp := g.NewTemp()
+	temp := g.NewTemp(resultType)
 	g.AddQuad(operator, leftOperand, rightOperand, temp)
 
 	g.Operands.Push(temp)

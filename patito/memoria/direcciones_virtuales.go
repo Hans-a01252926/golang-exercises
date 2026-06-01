@@ -48,8 +48,9 @@ func NewAddressAllocator() *AddressAllocator {
 		nextGlobalFloat:  GlobalFloatStart,
 		nextGlobalString: GlobalStringStart,
 
-		nextLocalInt:   LocalIntStart,
-		nextLocalFloat: LocalFloatStart,
+		nextLocalInt:    LocalIntStart,
+		nextLocalFloat:  LocalFloatStart,
+		nextLocalString: LocalStringStart,
 
 		nextTempInt:   TempIntStart,
 		nextTempFloat: TempFloatStart,
