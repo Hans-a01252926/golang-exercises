@@ -109,8 +109,12 @@ func (fd *FunctionDirectory) AddParam(funcName string, paramName string, paramTy
 	return fn.Vars.AddVar(paramName, paramType, funcName, address)
 }
 
-func (fd *FunctionDirectory) SetFunctionStart(name string, start int) {
-	if fn, ok := fd.Functions[name]; ok {
-		fn.StartQuad = start
+func (fd *FunctionDirectory) SetFunctionStart(name string, startQuad int) error {
+	fn, ok := fd.Functions[name]
+	if !ok {
+		return fmt.Errorf("función no encontrada: %s", name)
 	}
+
+	fn.StartQuad = startQuad
+	return nil
 }

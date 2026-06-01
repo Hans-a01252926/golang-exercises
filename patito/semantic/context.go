@@ -190,3 +190,10 @@ func (s *SemanticContext) EndCall(name string) int {
 	s.CurrentCall = nil
 	return fn.StartQuad
 }
+
+func (s *SemanticContext) SetFunctionStart(name string, startQuad int) {
+	err := s.DirFunc.SetFunctionStart(name, startQuad)
+	if err != nil {
+		s.AddError(err.Error())
+	}
+}
