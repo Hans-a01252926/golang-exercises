@@ -16,13 +16,14 @@ type SemanticContext struct {
 	Constants *memoria.ConstantsTable
 }
 
-func NewSemanticContext() *SemanticContext {
+func NewSemanticContext(allocator *memoria.AddressAllocator) *SemanticContext {
 	return &SemanticContext{
 		DirFunc:     NewFunctionDirectory(),
 		Cube:        NewSemanticCube(),
 		CurrentFunc: "global",
 		CurrentType: TypeNula,
 		Errors:      []string{},
+		Allocator:   allocator,
 	}
 }
 
@@ -35,7 +36,21 @@ func (s *SemanticContext) SetCurrentType(t Type) {
 }
 
 func (s *SemanticContext) AddVar(name string, varType Type) {
-	err := s.DirFunc.AddVarToFunction(s.CurrentFunc, name, varType)
+	var addr memoria.Address
+	var err error
+
+	if s.CurrentFunc == "global" {
+		addr, err = s.Allocator.AllocateGlobal(string(varType))
+	} else {
+		addr, err = s.Allocator.AllocateLocal(string(varType))
+	}
+
+	if err != nil {
+		s.AddError(err.Error())
+		return
+	}
+
+	err = s.DirFunc.AddVarToFunction(s.CurrentFunc, name, varType, int(addr))
 	if err != nil {
 		s.AddError(err.Error())
 	}

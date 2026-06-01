@@ -62,13 +62,13 @@ func (fd *FunctionDirectory) GetFunction(name string) (*FunctionEntry, bool) {
 	return fn, ok
 }
 
-func (fd *FunctionDirectory) AddVarToFunction(funcName string, varName string, varType Type) error {
+func (fd *FunctionDirectory) AddVarToFunction(funcName string, varName string, varType Type, address int) error {
 	fn, ok := fd.Functions[funcName]
 	if !ok {
 		return fmt.Errorf("función no encontrada: %s", funcName)
 	}
 
-	return fn.Vars.AddVar(varName, varType, funcName, 0)
+	return fn.Vars.AddVar(varName, varType, funcName, address)
 }
 
 func (fd *FunctionDirectory) LookupVar(currentFunc string, varName string) (*VarEntry, bool) {
