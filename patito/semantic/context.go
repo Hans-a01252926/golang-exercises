@@ -12,8 +12,14 @@ type SemanticContext struct {
 	CurrentType Type
 	Errors      []string
 
-	Allocator *memoria.AddressAllocator
-	Constants *memoria.ConstantsTable
+	Allocator   *memoria.AddressAllocator
+	Constants   *memoria.ConstantsTable
+	CurrentCall *CallContext
+}
+
+type CallContext struct {
+	FunctionName string
+	ArgIndex     int
 }
 
 func NewSemanticContext(allocator *memoria.AddressAllocator) *SemanticContext {
@@ -133,4 +139,53 @@ func (s *SemanticContext) GetVarAddressAndType(name string) (string, Type) {
 	}
 
 	return fmt.Sprintf("%d", v.Address), v.Type
+}
+
+func (s *SemanticContext) StartCall(name string) {
+	if _, ok := s.DirFunc.GetFunction(name); !ok {
+		s.AddError(fmt.Sprintf("función no declarada: %s", name))
+		return
+	}
+
+	s.CurrentCall = &CallContext{
+		FunctionName: name,
+		ArgIndex:     0,
+	}
+}
+
+func (s *SemanticContext) GetCurrentParam() (ParamEntry, bool) {
+	if s.CurrentCall == nil {
+		s.AddError("no hay llamada activa")
+		return ParamEntry{}, false
+	}
+
+	fn, ok := s.DirFunc.GetFunction(s.CurrentCall.FunctionName)
+	if !ok {
+		s.AddError(fmt.Sprintf("función no declarada: %s", s.CurrentCall.FunctionName))
+		return ParamEntry{}, false
+	}
+
+	if s.CurrentCall.ArgIndex >= len(fn.Params) {
+		s.AddError(fmt.Sprintf("demasiados argumentos para función %s", fn.Name))
+		return ParamEntry{}, false
+	}
+
+	param := fn.Params[s.CurrentCall.ArgIndex]
+	s.CurrentCall.ArgIndex++
+
+	return param, true
+}
+
+func (s *SemanticContext) EndCall(name string) int {
+	fn, ok := s.DirFunc.GetFunction(name)
+	if !ok {
+		return -1
+	}
+
+	if s.CurrentCall != nil && s.CurrentCall.ArgIndex != len(fn.Params) {
+		s.AddError(fmt.Sprintf("cantidad incorrecta de argumentos en llamada a %s", name))
+	}
+
+	s.CurrentCall = nil
+	return fn.StartQuad
 }

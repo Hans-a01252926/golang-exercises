@@ -208,16 +208,38 @@ ciclo:
 	;
 
 llamada:
-	ID PAR_IZQ argumentos PAR_DER
+	ID 
+	{
+		yylex.(*PatitoLexer).Sem.StartCall($1)
+		yylex.(*PatitoLexer).Gen.GenerateERA($1)
+	}
+	PAR_IZQ argumentos PAR_DER
+	{
+		startQuad := yylex.(*PatitoLexer).Sem.EndCall($1)
+		yylex.(*PatitoLexer).Gen.GenerateGOSUB($1, startQuad)
+	}
 	;
 
 argumentos:
-	expresion argumentos_prima
-	| /* empty */
+	expresion 
+	{
+		param, ok := yylex.(*PatitoLexer).Sem.GetCurrentParam()
+		if ok {
+			yylex.(*PatitoLexer).Gen.GenerateParam(param.Type, param.Address)
+		}
+	}
+	argumentos_prima
 	;
 
 argumentos_prima:
-	COMA expresion argumentos_prima
+	COMA expresion 
+	{
+		param, ok := yylex.(*PatitoLexer).Sem.GetCurrentParam()
+		if ok {
+			yylex.(*PatitoLexer).Gen.GenerateParam(param.Type, param.Address)
+		}
+	}
+	argumentos_prima
 	| /* empty */
 	;
 

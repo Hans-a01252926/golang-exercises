@@ -254,3 +254,29 @@ func (g *Generator) FillMainGoto() {
 func (g *Generator) GenerateEndFunc() {
 	g.AddQuad("ENDFunc", "_", "_", "_")
 }
+
+func (g *Generator) GenerateERA(functionName string) {
+	g.AddQuad("ERA", functionName, "_", "_")
+}
+
+func (g *Generator) GenerateGOSUB(functionName string, startQuad int) {
+	g.AddQuad("GOSUB", functionName, "_", fmt.Sprintf("%d", startQuad))
+}
+
+func (g *Generator) GenerateParam(paramType semantic.Type, paramAddress int) {
+	argOperand, ok1 := g.Operands.Pop()
+	argType, ok2 := g.Types.Pop()
+
+	if !ok1 || !ok2 {
+		g.AddError("no hay argumento para PARAM")
+		return
+	}
+
+	resultType := g.Cube.Result(paramType, semantic.OpAsigna, argType)
+	if resultType == semantic.TypeError {
+		g.AddError(fmt.Sprintf("tipo de parámetro incompatible: se esperaba %s y se recibió %s", paramType, argType))
+		return
+	}
+
+	g.AddQuad("PARAM", argOperand, "_", fmt.Sprintf("%d", paramAddress))
+}
