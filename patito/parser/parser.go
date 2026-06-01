@@ -657,13 +657,13 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line parser/parser.y:129
 		{
-			yylex.(*PatitoLexer).Sem.AddVar(yyDollar[1].lit, yyDollar[3].typ)
+			yylex.(*PatitoLexer).Sem.AddParam(yyDollar[1].lit, yyDollar[3].typ)
 		}
 	case 22:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line parser/parser.y:138
 		{
-			yylex.(*PatitoLexer).Sem.AddVar(yyDollar[2].lit, yyDollar[4].typ)
+			yylex.(*PatitoLexer).Sem.AddParam(yyDollar[2].lit, yyDollar[4].typ)
 		}
 	case 33:
 		yyDollar = yyS[yypt-4 : yypt+1]

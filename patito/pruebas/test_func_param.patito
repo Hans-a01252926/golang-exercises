@@ -1,12 +1,12 @@
 programa prueba;
 
+vars x : entero;
+
 nula imprimeNumero(a : entero) {
 	{
 		escribe(a);
 	}
 };
-
-vars x : entero;
 
 inicio {
 	x = 5;

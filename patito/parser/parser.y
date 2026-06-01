@@ -125,23 +125,23 @@ tipo_retorno:
 	;
 
 params:
-	ID DOSPUNTOS tipo
-	{
-		yylex.(*PatitoLexer).Sem.AddVar($1, $3)
-	}
-	params_prima
-	| /* empty */
-	;
+    ID DOSPUNTOS tipo
+    {
+        yylex.(*PatitoLexer).Sem.AddParam($1, $3)
+    }
+    params_prima
+    | /* empty */
+    ;
 
 params_prima:
-	COMA ID DOSPUNTOS tipo
-	{
-		yylex.(*PatitoLexer).Sem.AddVar($2, $4)
-	}
-	params_prima
-	| /* empty */
-	;
-
+    COMA ID DOSPUNTOS tipo
+    {
+        yylex.(*PatitoLexer).Sem.AddParam($2, $4)
+    }
+    params_prima
+    | /* empty */
+    ;
+	
 cuerpo:
 	LLAVE_IZQ estatutos LLAVE_DER
 	;

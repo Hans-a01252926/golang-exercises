@@ -197,3 +197,19 @@ func (s *SemanticContext) SetFunctionStart(name string, startQuad int) {
 		s.AddError(err.Error())
 	}
 }
+
+func (s *SemanticContext) AddParam(name string, paramType Type) {
+	var addr memoria.Address
+	var err error
+
+	addr, err = s.Allocator.AllocateLocal(string(paramType))
+	if err != nil {
+		s.AddError(err.Error())
+		return
+	}
+
+	err = s.DirFunc.AddParam(s.CurrentFunc, name, paramType, int(addr))
+	if err != nil {
+		s.AddError(err.Error())
+	}
+}
