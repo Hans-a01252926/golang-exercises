@@ -222,27 +222,28 @@ llamada:
 	;
 
 argumentos:
-	expresion 
-	{
-		param, ok := yylex.(*PatitoLexer).Sem.GetCurrentParam()
-		if ok {
-			yylex.(*PatitoLexer).Gen.GenerateParam(param.Type, param.Address)
-		}
-	}
-	argumentos_prima
-	;
+    expresion
+    {
+        param, ok := yylex.(*PatitoLexer).Sem.GetCurrentParam()
+        if ok {
+            yylex.(*PatitoLexer).Gen.GenerateParam(param.Type, param.Address)
+        }
+    }
+    argumentos_prima
+    | /* empty */
+    ;
 
 argumentos_prima:
-	COMA expresion 
-	{
-		param, ok := yylex.(*PatitoLexer).Sem.GetCurrentParam()
-		if ok {
-			yylex.(*PatitoLexer).Gen.GenerateParam(param.Type, param.Address)
-		}
-	}
-	argumentos_prima
-	| /* empty */
-	;
+    COMA expresion
+    {
+        param, ok := yylex.(*PatitoLexer).Sem.GetCurrentParam()
+        if ok {
+            yylex.(*PatitoLexer).Gen.GenerateParam(param.Type, param.Address)
+        }
+    }
+    argumentos_prima
+    | /* empty */
+    ;
 
 imprime:
 	ESCRIBE PAR_IZQ imprime_args PAR_DER PUNTOCOMA

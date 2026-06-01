@@ -1,0 +1,14 @@
+programa prueba;
+
+nula imprimeNumero(a : entero) {
+	{
+		escribe(a);
+	}
+};
+
+vars x : entero;
+
+inicio {
+	x = 5;
+	imprimeNumero(x);
+} fin
