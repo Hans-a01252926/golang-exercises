@@ -164,8 +164,9 @@ asigna:
 	{
 		destAddr, varType := yylex.(*PatitoLexer).Sem.GetVarAddressAndType($1)
 
-		yylex.(*PatitoLexer).Sem.CheckAssignment($1, $3)
-		yylex.(*PatitoLexer).Gen.GenerateAssignment(destAddr, varType)
+		if varType != semantic.TypeError && $3 != semantic.TypeError {
+			yylex.(*PatitoLexer).Gen.GenerateAssignment(destAddr, varType)
+		}
 	}
 	;
 

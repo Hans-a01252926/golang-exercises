@@ -30,6 +30,7 @@ func NewSemanticContext(allocator *memoria.AddressAllocator) *SemanticContext {
 		CurrentType: TypeNula,
 		Errors:      []string{},
 		Allocator:   allocator,
+		Constants:   memoria.NewConstantsTable(allocator),
 	}
 }
 
