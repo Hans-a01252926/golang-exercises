@@ -18,7 +18,7 @@ state 1
 state 2
 	input:  programa.    (1)
 
-	.  reduce 1 (src line 45)
+	.  reduce 1 (src line 46)
 
 
 state 3
@@ -39,7 +39,7 @@ state 5
 	programa:  PROGRAMA ID PUNTOCOMA.$$2 vars funcs INICIO $$3 cuerpo FIN 
 	$$2: .    (2)
 
-	.  reduce 2 (src line 49)
+	.  reduce 2 (src line 50)
 
 	$$2  goto 6
 
@@ -48,7 +48,7 @@ state 6
 	vars: .    (7)
 
 	VARS  shift 8
-	.  reduce 7 (src line 67)
+	.  reduce 7 (src line 68)
 
 	vars  goto 7
 
@@ -59,7 +59,7 @@ state 7
 	ENTERO  shift 14
 	FLOTANTE  shift 15
 	NULA  shift 13
-	.  reduce 14 (src line 100)
+	.  reduce 14 (src line 101)
 
 	tipo  goto 12
 	tipo_retorno  goto 11
@@ -88,7 +88,7 @@ state 10
 	ENTERO  shift 14
 	FLOTANTE  shift 15
 	NULA  shift 13
-	.  reduce 14 (src line 100)
+	.  reduce 14 (src line 101)
 
 	tipo  goto 12
 	tipo_retorno  goto 11
@@ -105,25 +105,25 @@ state 11
 state 12
 	tipo_retorno:  tipo.    (17)
 
-	.  reduce 17 (src line 116)
+	.  reduce 17 (src line 117)
 
 
 state 13
 	tipo_retorno:  NULA.    (18)
 
-	.  reduce 18 (src line 121)
+	.  reduce 18 (src line 122)
 
 
 state 14
 	tipo:  ENTERO.    (11)
 
-	.  reduce 11 (src line 87)
+	.  reduce 11 (src line 88)
 
 
 state 15
 	tipo:  FLOTANTE.    (12)
 
-	.  reduce 12 (src line 92)
+	.  reduce 12 (src line 93)
 
 
 state 16
@@ -138,7 +138,7 @@ state 17
 	lista_ids_prima: .    (10)
 
 	COMA  shift 23
-	.  reduce 10 (src line 82)
+	.  reduce 10 (src line 83)
 
 	lista_ids_prima  goto 22
 
@@ -146,21 +146,21 @@ state 18
 	programa:  PROGRAMA ID PUNTOCOMA $$2 vars funcs INICIO.$$3 cuerpo FIN 
 	$$3: .    (3)
 
-	.  reduce 3 (src line 54)
+	.  reduce 3 (src line 55)
 
 	$$3  goto 24
 
 state 19
 	funcs:  func funcs.    (13)
 
-	.  reduce 13 (src line 98)
+	.  reduce 13 (src line 99)
 
 
 state 20
 	func:  tipo_retorno ID.$$15 PAR_IZQ params PAR_DER LLAVE_IZQ vars cuerpo LLAVE_DER PUNTOCOMA 
 	$$15: .    (15)
 
-	.  reduce 15 (src line 103)
+	.  reduce 15 (src line 104)
 
 	$$15  goto 25
 
@@ -176,7 +176,7 @@ state 21
 state 22
 	lista_ids:  ID lista_ids_prima.    (8)
 
-	.  reduce 8 (src line 70)
+	.  reduce 8 (src line 71)
 
 
 state 23
@@ -213,7 +213,7 @@ state 27
 	lista_ids_prima: .    (10)
 
 	COMA  shift 23
-	.  reduce 10 (src line 82)
+	.  reduce 10 (src line 83)
 
 	lista_ids_prima  goto 32
 
@@ -232,7 +232,7 @@ state 29
 	MIENTRAS  shift 43
 	ESCRIBE  shift 44
 	ID  shift 41
-	.  reduce 27 (src line 151)
+	.  reduce 27 (src line 152)
 
 	estatutos  goto 34
 	estatuto  goto 35
@@ -247,7 +247,7 @@ state 30
 	params: .    (21)
 
 	ID  shift 46
-	.  reduce 21 (src line 133)
+	.  reduce 21 (src line 134)
 
 	params  goto 45
 
@@ -255,20 +255,20 @@ state 31
 	vars:  VARS lista_ids DOSPUNTOS tipo PUNTOCOMA.$$5 vars 
 	$$5: .    (5)
 
-	.  reduce 5 (src line 61)
+	.  reduce 5 (src line 62)
 
 	$$5  goto 47
 
 state 32
 	lista_ids_prima:  COMA ID lista_ids_prima.    (9)
 
-	.  reduce 9 (src line 77)
+	.  reduce 9 (src line 78)
 
 
 state 33
 	programa:  PROGRAMA ID PUNTOCOMA $$2 vars funcs INICIO $$3 cuerpo FIN.    (4)
 
-	.  reduce 4 (src line 58)
+	.  reduce 4 (src line 59)
 
 
 state 34
@@ -286,7 +286,7 @@ state 35
 	MIENTRAS  shift 43
 	ESCRIBE  shift 44
 	ID  shift 41
-	.  reduce 27 (src line 151)
+	.  reduce 27 (src line 152)
 
 	estatutos  goto 49
 	estatuto  goto 35
@@ -299,19 +299,19 @@ state 35
 state 36
 	estatuto:  asigna.    (28)
 
-	.  reduce 28 (src line 154)
+	.  reduce 28 (src line 155)
 
 
 state 37
 	estatuto:  condicion.    (29)
 
-	.  reduce 29 (src line 156)
+	.  reduce 29 (src line 157)
 
 
 state 38
 	estatuto:  ciclo.    (30)
 
-	.  reduce 30 (src line 157)
+	.  reduce 30 (src line 158)
 
 
 state 39
@@ -324,7 +324,7 @@ state 39
 state 40
 	estatuto:  imprime.    (32)
 
-	.  reduce 32 (src line 159)
+	.  reduce 32 (src line 160)
 
 
 state 41
@@ -333,7 +333,7 @@ state 41
 	$$42: .    (42)
 
 	ASIGNA  shift 51
-	.  reduce 42 (src line 211)
+	.  reduce 42 (src line 212)
 
 	$$42  goto 52
 
@@ -348,7 +348,7 @@ state 43
 	ciclo:  MIENTRAS.$$39 PAR_IZQ expresion PAR_DER $$40 HAZ cuerpo PUNTOCOMA 
 	$$39: .    (39)
 
-	.  reduce 39 (src line 196)
+	.  reduce 39 (src line 197)
 
 	$$39  goto 54
 
@@ -378,26 +378,26 @@ state 47
 	vars: .    (7)
 
 	VARS  shift 8
-	.  reduce 7 (src line 67)
+	.  reduce 7 (src line 68)
 
 	vars  goto 58
 
 state 48
 	cuerpo:  LLAVE_IZQ estatutos LLAVE_DER.    (25)
 
-	.  reduce 25 (src line 145)
+	.  reduce 25 (src line 146)
 
 
 state 49
 	estatutos:  estatuto estatutos.    (26)
 
-	.  reduce 26 (src line 149)
+	.  reduce 26 (src line 150)
 
 
 state 50
 	estatuto:  llamada PUNTOCOMA.    (31)
 
-	.  reduce 31 (src line 158)
+	.  reduce 31 (src line 159)
 
 
 state 51
@@ -490,7 +490,7 @@ state 57
 state 58
 	vars:  VARS lista_ids DOSPUNTOS tipo PUNTOCOMA $$5 vars.    (6)
 
-	.  reduce 6 (src line 66)
+	.  reduce 6 (src line 67)
 
 
 state 59
@@ -515,7 +515,7 @@ state 60
 	MENOR  shift 82
 	DIF  shift 83
 	IGUAL  shift 84
-	.  reduce 56 (src line 274)
+	.  reduce 56 (src line 275)
 
 
 state 61
@@ -525,13 +525,13 @@ state 61
 
 	MULT  shift 87
 	DIVIDE  shift 88
-	.  reduce 69 (src line 336)
+	.  reduce 69 (src line 337)
 
 
 state 62
 	termino:  factor.    (74)
 
-	.  reduce 74 (src line 362)
+	.  reduce 74 (src line 363)
 
 
 state 63
@@ -587,33 +587,33 @@ state 66
 	factor:  ID.    (78)
 	$$42: .    (42)
 
-	PAR_IZQ  reduce 42 (src line 211)
-	.  reduce 78 (src line 381)
+	PAR_IZQ  reduce 42 (src line 212)
+	.  reduce 78 (src line 382)
 
 	$$42  goto 52
 
 state 67
 	factor:  cte.    (79)
 
-	.  reduce 79 (src line 387)
+	.  reduce 79 (src line 388)
 
 
 state 68
 	factor:  llamada.    (80)
 
-	.  reduce 80 (src line 391)
+	.  reduce 80 (src line 392)
 
 
 state 69
 	cte:  CTE_ENT.    (81)
 
-	.  reduce 81 (src line 397)
+	.  reduce 81 (src line 398)
 
 
 state 70
 	cte:  CTE_FLOT.    (82)
 
-	.  reduce 82 (src line 404)
+	.  reduce 82 (src line 405)
 
 
 state 71
@@ -626,7 +626,7 @@ state 71
 	MAS  shift 64
 	MENOS  shift 65
 	PAR_IZQ  shift 63
-	.  reduce 46 (src line 233)
+	.  reduce 46 (src line 234)
 
 	expresion  goto 93
 	exp  goto 60
@@ -673,20 +673,20 @@ state 75
 	imprime_args_prima: .    (53)
 
 	COMA  shift 98
-	.  reduce 53 (src line 258)
+	.  reduce 53 (src line 259)
 
 	imprime_args_prima  goto 97
 
 state 76
 	imprime_val:  expresion.    (54)
 
-	.  reduce 54 (src line 261)
+	.  reduce 54 (src line 262)
 
 
 state 77
 	imprime_val:  LETRERO.    (55)
 
-	.  reduce 55 (src line 267)
+	.  reduce 55 (src line 268)
 
 
 state 78
@@ -694,7 +694,7 @@ state 78
 	vars: .    (7)
 
 	VARS  shift 8
-	.  reduce 7 (src line 67)
+	.  reduce 7 (src line 68)
 
 	vars  goto 99
 
@@ -702,21 +702,21 @@ state 79
 	params:  ID DOSPUNTOS tipo.$$19 params_prima 
 	$$19: .    (19)
 
-	.  reduce 19 (src line 127)
+	.  reduce 19 (src line 128)
 
 	$$19  goto 100
 
 state 80
 	asigna:  ID ASIGNA expresion PUNTOCOMA.    (33)
 
-	.  reduce 33 (src line 162)
+	.  reduce 33 (src line 163)
 
 
 state 81
 	expresion:  exp MAYOR.$$57 exp 
 	$$57: .    (57)
 
-	.  reduce 57 (src line 279)
+	.  reduce 57 (src line 280)
 
 	$$57  goto 101
 
@@ -724,7 +724,7 @@ state 82
 	expresion:  exp MENOR.$$59 exp 
 	$$59: .    (59)
 
-	.  reduce 59 (src line 288)
+	.  reduce 59 (src line 289)
 
 	$$59  goto 102
 
@@ -732,7 +732,7 @@ state 83
 	expresion:  exp DIF.$$61 exp 
 	$$61: .    (61)
 
-	.  reduce 61 (src line 297)
+	.  reduce 61 (src line 298)
 
 	$$61  goto 103
 
@@ -740,7 +740,7 @@ state 84
 	expresion:  exp IGUAL.$$63 exp 
 	$$63: .    (63)
 
-	.  reduce 63 (src line 306)
+	.  reduce 63 (src line 307)
 
 	$$63  goto 104
 
@@ -748,7 +748,7 @@ state 85
 	exp:  exp MAS.$$65 termino 
 	$$65: .    (65)
 
-	.  reduce 65 (src line 317)
+	.  reduce 65 (src line 318)
 
 	$$65  goto 105
 
@@ -756,7 +756,7 @@ state 86
 	exp:  exp MENOS.$$67 termino 
 	$$67: .    (67)
 
-	.  reduce 67 (src line 327)
+	.  reduce 67 (src line 328)
 
 	$$67  goto 106
 
@@ -764,7 +764,7 @@ state 87
 	termino:  termino MULT.$$70 factor 
 	$$70: .    (70)
 
-	.  reduce 70 (src line 343)
+	.  reduce 70 (src line 344)
 
 	$$70  goto 107
 
@@ -772,7 +772,7 @@ state 88
 	termino:  termino DIVIDE.$$72 factor 
 	$$72: .    (72)
 
-	.  reduce 72 (src line 353)
+	.  reduce 72 (src line 354)
 
 	$$72  goto 108
 
@@ -786,13 +786,13 @@ state 89
 state 90
 	factor:  MAS factor.    (76)
 
-	.  reduce 76 (src line 373)
+	.  reduce 76 (src line 374)
 
 
 state 91
 	factor:  MENOS factor.    (77)
 
-	.  reduce 77 (src line 377)
+	.  reduce 77 (src line 378)
 
 
 state 92
@@ -806,7 +806,7 @@ state 93
 	argumentos:  expresion.$$44 argumentos_prima 
 	$$44: .    (44)
 
-	.  reduce 44 (src line 224)
+	.  reduce 44 (src line 225)
 
 	$$44  goto 111
 
@@ -814,7 +814,7 @@ state 94
 	condicion:  SI PAR_IZQ expresion PAR_DER.$$34 cuerpo sino_opc PUNTOCOMA 
 	$$34: .    (34)
 
-	.  reduce 34 (src line 173)
+	.  reduce 34 (src line 174)
 
 	$$34  goto 112
 
@@ -835,7 +835,7 @@ state 96
 state 97
 	imprime_args:  imprime_val imprime_args_prima.    (51)
 
-	.  reduce 51 (src line 252)
+	.  reduce 51 (src line 253)
 
 
 state 98
@@ -871,7 +871,7 @@ state 100
 	params_prima: .    (24)
 
 	COMA  shift 118
-	.  reduce 24 (src line 142)
+	.  reduce 24 (src line 143)
 
 	params_prima  goto 117
 
@@ -1008,13 +1008,13 @@ state 108
 state 109
 	factor:  PAR_IZQ expresion PAR_DER.    (75)
 
-	.  reduce 75 (src line 368)
+	.  reduce 75 (src line 369)
 
 
 state 110
 	llamada:  ID $$42 PAR_IZQ argumentos PAR_DER.    (43)
 
-	.  reduce 43 (src line 217)
+	.  reduce 43 (src line 218)
 
 
 state 111
@@ -1022,7 +1022,7 @@ state 111
 	argumentos_prima: .    (49)
 
 	COMA  shift 128
-	.  reduce 49 (src line 245)
+	.  reduce 49 (src line 246)
 
 	argumentos_prima  goto 127
 
@@ -1038,14 +1038,14 @@ state 113
 	ciclo:  MIENTRAS $$39 PAR_IZQ expresion PAR_DER.$$40 HAZ cuerpo PUNTOCOMA 
 	$$40: .    (40)
 
-	.  reduce 40 (src line 201)
+	.  reduce 40 (src line 202)
 
 	$$40  goto 130
 
 state 114
 	imprime:  ESCRIBE PAR_IZQ imprime_args PAR_DER PUNTOCOMA.    (50)
 
-	.  reduce 50 (src line 248)
+	.  reduce 50 (src line 249)
 
 
 state 115
@@ -1053,7 +1053,7 @@ state 115
 	imprime_args_prima: .    (53)
 
 	COMA  shift 98
-	.  reduce 53 (src line 258)
+	.  reduce 53 (src line 259)
 
 	imprime_args_prima  goto 131
 
@@ -1067,7 +1067,7 @@ state 116
 state 117
 	params:  ID DOSPUNTOS tipo $$19 params_prima.    (20)
 
-	.  reduce 20 (src line 132)
+	.  reduce 20 (src line 133)
 
 
 state 118
@@ -1084,7 +1084,7 @@ state 119
 
 	MAS  shift 85
 	MENOS  shift 86
-	.  reduce 58 (src line 283)
+	.  reduce 58 (src line 284)
 
 
 state 120
@@ -1094,7 +1094,7 @@ state 120
 
 	MAS  shift 85
 	MENOS  shift 86
-	.  reduce 60 (src line 292)
+	.  reduce 60 (src line 293)
 
 
 state 121
@@ -1104,7 +1104,7 @@ state 121
 
 	MAS  shift 85
 	MENOS  shift 86
-	.  reduce 62 (src line 301)
+	.  reduce 62 (src line 302)
 
 
 state 122
@@ -1114,7 +1114,7 @@ state 122
 
 	MAS  shift 85
 	MENOS  shift 86
-	.  reduce 64 (src line 310)
+	.  reduce 64 (src line 311)
 
 
 state 123
@@ -1124,7 +1124,7 @@ state 123
 
 	MULT  shift 87
 	DIVIDE  shift 88
-	.  reduce 66 (src line 322)
+	.  reduce 66 (src line 323)
 
 
 state 124
@@ -1134,25 +1134,25 @@ state 124
 
 	MULT  shift 87
 	DIVIDE  shift 88
-	.  reduce 68 (src line 331)
+	.  reduce 68 (src line 332)
 
 
 state 125
 	termino:  termino MULT $$70 factor.    (71)
 
-	.  reduce 71 (src line 348)
+	.  reduce 71 (src line 349)
 
 
 state 126
 	termino:  termino DIVIDE $$72 factor.    (73)
 
-	.  reduce 73 (src line 357)
+	.  reduce 73 (src line 358)
 
 
 state 127
 	argumentos:  expresion $$44 argumentos_prima.    (45)
 
-	.  reduce 45 (src line 232)
+	.  reduce 45 (src line 233)
 
 
 state 128
@@ -1178,7 +1178,7 @@ state 129
 	sino_opc: .    (38)
 
 	SINO  shift 136
-	.  reduce 38 (src line 190)
+	.  reduce 38 (src line 191)
 
 	sino_opc  goto 135
 
@@ -1192,7 +1192,7 @@ state 130
 state 131
 	imprime_args_prima:  COMA imprime_val imprime_args_prima.    (52)
 
-	.  reduce 52 (src line 256)
+	.  reduce 52 (src line 257)
 
 
 state 132
@@ -1213,7 +1213,7 @@ state 134
 	argumentos_prima:  COMA expresion.$$47 argumentos_prima 
 	$$47: .    (47)
 
-	.  reduce 47 (src line 236)
+	.  reduce 47 (src line 237)
 
 	$$47  goto 140
 
@@ -1228,7 +1228,7 @@ state 136
 	sino_opc:  SINO.$$36 cuerpo 
 	$$36: .    (36)
 
-	.  reduce 36 (src line 181)
+	.  reduce 36 (src line 182)
 
 	$$36  goto 142
 
@@ -1243,7 +1243,7 @@ state 137
 state 138
 	func:  tipo_retorno ID $$15 PAR_IZQ params PAR_DER LLAVE_IZQ vars cuerpo LLAVE_DER PUNTOCOMA.    (16)
 
-	.  reduce 16 (src line 109)
+	.  reduce 16 (src line 110)
 
 
 state 139
@@ -1260,14 +1260,14 @@ state 140
 	argumentos_prima: .    (49)
 
 	COMA  shift 128
-	.  reduce 49 (src line 245)
+	.  reduce 49 (src line 246)
 
 	argumentos_prima  goto 145
 
 state 141
 	condicion:  SI PAR_IZQ expresion PAR_DER $$34 cuerpo sino_opc PUNTOCOMA.    (35)
 
-	.  reduce 35 (src line 178)
+	.  reduce 35 (src line 179)
 
 
 state 142
@@ -1289,26 +1289,26 @@ state 144
 	params_prima:  COMA ID DOSPUNTOS tipo.$$22 params_prima 
 	$$22: .    (22)
 
-	.  reduce 22 (src line 136)
+	.  reduce 22 (src line 137)
 
 	$$22  goto 148
 
 state 145
 	argumentos_prima:  COMA expresion $$47 argumentos_prima.    (48)
 
-	.  reduce 48 (src line 244)
+	.  reduce 48 (src line 245)
 
 
 state 146
 	sino_opc:  SINO $$36 cuerpo.    (37)
 
-	.  reduce 37 (src line 186)
+	.  reduce 37 (src line 187)
 
 
 state 147
 	ciclo:  MIENTRAS $$39 PAR_IZQ expresion PAR_DER $$40 HAZ cuerpo PUNTOCOMA.    (41)
 
-	.  reduce 41 (src line 205)
+	.  reduce 41 (src line 206)
 
 
 state 148
@@ -1316,17 +1316,17 @@ state 148
 	params_prima: .    (24)
 
 	COMA  shift 118
-	.  reduce 24 (src line 142)
+	.  reduce 24 (src line 143)
 
 	params_prima  goto 149
 
 state 149
 	params_prima:  COMA ID DOSPUNTOS tipo $$22 params_prima.    (23)
 
-	.  reduce 23 (src line 141)
+	.  reduce 23 (src line 142)
 
 
-37 terminals, 52 nonterminals
+38 terminals, 52 nonterminals
 83 grammar rules, 150/16000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 101 working sets used

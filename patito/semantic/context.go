@@ -213,3 +213,32 @@ func (s *SemanticContext) AddParam(name string, paramType Type) {
 		s.AddError(err.Error())
 	}
 }
+
+func (s *SemanticContext) CheckReturn(exprType Type) {
+	fn, ok := s.DirFunc.GetFunction(s.CurrentFunc)
+	if !ok {
+		s.AddError("return fuera de función")
+		return
+	}
+
+	if fn.ReturnType == TypeNula {
+		s.AddError("una función nula no debe regresar valor")
+		return
+	}
+
+	result := s.Cube.Result(fn.ReturnType, OpAsigna, exprType)
+	if result == TypeError {
+		s.AddError(fmt.Sprintf("return incompatible: se esperaba %s y se recibió %s", fn.ReturnType, exprType))
+	}
+}
+
+func (s *SemanticContext) CheckMissingReturn() {
+	fn, ok := s.DirFunc.GetFunction(s.CurrentFunc)
+	if !ok {
+		return
+	}
+
+	if fn.ReturnType != TypeNula {
+		s.AddError(fmt.Sprintf("función %s debe tener return", fn.Name))
+	}
+}

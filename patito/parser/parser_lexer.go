@@ -112,6 +112,8 @@ func (p *PatitoLexer) Lex(lval *yySymType) int {
 		return LLAVE_IZQ
 	case token.LLAVE_DER:
 		return LLAVE_DER
+	case token.RETURN:
+		return RETURN
 	}
 
 	p.Errors = append(p.Errors, fmt.Sprintf("token ilegal: %s", tok.Literal))

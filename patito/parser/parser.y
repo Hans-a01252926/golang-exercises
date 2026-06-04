@@ -29,6 +29,7 @@ import (
 %token PUNTOCOMA DOSPUNTOS COMA
 %token PAR_IZQ PAR_DER
 %token LLAVE_IZQ LLAVE_DER
+%token RETURN
 
 %type <typ> tipo tipo_retorno expresion exp termino factor cte
 %type <ids> lista_ids lista_ids_prima
@@ -106,10 +107,22 @@ func:
 		yylex.(*PatitoLexer).Sem.StartFunction($2, $1)
 		yylex.(*PatitoLexer).Sem.SetFunctionStart($2, yylex.(*PatitoLexer).Gen.NextQuad())
 	}
-	PAR_IZQ params PAR_DER LLAVE_IZQ vars cuerpo LLAVE_DER PUNTOCOMA
+	PAR_IZQ params PAR_DER LLAVE_IZQ vars cuerpo return_opc LLAVE_DER PUNTOCOMA
 	{
 		yylex.(*PatitoLexer).Gen.GenerateEndFunc()
 		yylex.(*PatitoLexer).Sem.EndFunction()
+	}
+	;
+
+return_opc:
+	RETURN PAR_IZQ expresion PAR_DER PUNTOCOMA
+	{
+		yylex.(*PatitoLexer).Sem.CheckReturn($3)
+		yylex.(*PatitoLexer).Gen.GenerateReturn()
+	}
+	| /* empty */
+	{
+		yylex.(*PatitoLexer).Sem.CheckMissingReturn()
 	}
 	;
 

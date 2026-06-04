@@ -280,3 +280,15 @@ func (g *Generator) GenerateParam(paramType semantic.Type, paramAddress int) {
 
 	g.AddQuad("PARAM", argOperand, "_", fmt.Sprintf("%d", paramAddress))
 }
+
+func (g *Generator) GenerateReturn() {
+	value, ok1 := g.Operands.Pop()
+	_, ok2 := g.Types.Pop()
+
+	if !ok1 || !ok2 {
+		g.AddError("no hay valor para return")
+		return
+	}
+
+	g.AddQuad("RETURN", value, "_", "_")
+}

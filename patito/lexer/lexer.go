@@ -17,6 +17,7 @@ var keywords = map[string]token.TokenType{
 	"mientras": token.MIENTRAS,
 	"haz":      token.HAZ,
 	"escribe":  token.ESCRIBE,
+	"return":   token.RETURN,
 }
 
 type Lexer struct {
