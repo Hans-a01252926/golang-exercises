@@ -43,5 +43,6 @@ const (
 	CORCH_IZQ = "["
 	CORCH_DER = "]"
 	ILLEGAL   = "ILLEGAL"
+	RETURN    = "RETURN"
 	EOF       = "EOF"
 )
