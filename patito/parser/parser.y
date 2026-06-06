@@ -118,7 +118,9 @@ return_opc:
 	RETURN PAR_IZQ expresion PAR_DER PUNTOCOMA
 	{
 		yylex.(*PatitoLexer).Sem.CheckReturn($3)
-		yylex.(*PatitoLexer).Gen.GenerateReturn()
+
+		returnAddr := yylex.(*PatitoLexer).Sem.GetCurrentFunctionReturnAddress()
+		yylex.(*PatitoLexer).Gen.GenerateReturn(returnAddr)
 	}
 	| /* empty */
 	{
@@ -402,9 +404,16 @@ factor:
 		$$ = $1
 	}
 	| llamada
-	{
-		$$ = semantic.TypeNula
-	}
+    {
+        t := yylex.(*PatitoLexer).Sem.GetLastCallReturnType()
+
+        if t != semantic.TypeNula {
+            returnAddr := yylex.(*PatitoLexer).Sem.GetLastCallReturnAddress()
+            yylex.(*PatitoLexer).Gen.GenerateFunctionReturnCopy(returnAddr, t)
+        }
+
+        $$ = t
+    }
 	;
 
 cte:

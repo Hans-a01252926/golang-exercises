@@ -1,0 +1,14 @@
+programa prueba;
+
+vars y : flotante;
+
+flotante mitad(a : flotante) {
+    {
+    }
+    return(a / 2.0);
+};
+
+inicio {
+    y = mitad(10.0);
+    escribe(y);
+} fin

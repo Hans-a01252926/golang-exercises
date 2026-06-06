@@ -1,0 +1,14 @@
+programa prueba;
+
+vars x : entero;
+
+entero dameCinco() {
+    {
+    }
+    return(5);
+};
+
+inicio {
+    x = dameCinco();
+    escribe(x);
+} fin

@@ -1,0 +1,14 @@
+programa prueba;
+
+vars x : entero;
+
+entero suma(a : entero, b : entero) {
+    {
+    }
+    return(a + b);
+};
+
+inicio {
+    x = suma(2, 3) * 4;
+    escribe(x);
+} fin

@@ -288,12 +288,19 @@ func (vm *VirtualMachine) returnFunc(q quadruples.Quadruple) error {
 		return err
 	}
 
+	resultAddr, err := strconv.Atoi(q.Result)
+	if err != nil {
+		return err
+	}
+
 	value, err := vm.Memory.Get(valueAddr)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println("RETURN:", value)
+	if err := vm.Memory.Set(resultAddr, value); err != nil {
+		return err
+	}
 
 	vm.endFunc()
 	return nil

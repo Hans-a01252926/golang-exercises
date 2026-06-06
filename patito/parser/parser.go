@@ -103,7 +103,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line parser/parser.y:413
+//line parser/parser.y:434
 
 func Parse(l yyLexer) int {
 	return yyParse(l)
@@ -115,118 +115,122 @@ var yyExca = [...]int8{
 	1, -1,
 	-2, 0,
 	-1, 66,
-	32, 42,
-	-2, 78,
+	32, 44,
+	-2, 80,
 }
 
 const yyPrivate = 57344
 
-const yyLast = 160
+const yyLast = 166
 
 var yyAct = [...]uint8{
-	117, 28, 12, 76, 127, 97, 61, 62, 75, 68,
-	7, 66, 69, 70, 77, 60, 64, 65, 34, 132,
-	66, 69, 70, 48, 26, 64, 65, 63, 29, 73,
-	78, 113, 110, 109, 96, 94, 63, 85, 86, 39,
-	56, 81, 82, 83, 84, 39, 71, 55, 147, 53,
-	30, 118, 128, 98, 49, 59, 23, 72, 58, 139,
-	79, 57, 21, 141, 138, 114, 80, 89, 50, 31,
-	5, 22, 90, 91, 51, 93, 133, 95, 87, 88,
-	85, 86, 42, 46, 43, 27, 44, 41, 20, 99,
-	17, 4, 137, 136, 14, 15, 13, 9, 33, 32,
-	8, 116, 14, 15, 18, 3, 108, 115, 19, 107,
-	106, 105, 123, 124, 129, 125, 126, 119, 120, 121,
-	122, 131, 104, 103, 102, 101, 74, 140, 111, 92,
-	52, 130, 134, 54, 142, 135, 112, 40, 38, 143,
-	37, 36, 144, 35, 146, 145, 148, 100, 45, 149,
-	25, 10, 47, 24, 6, 2, 1, 16, 67, 11,
+	117, 28, 76, 12, 127, 97, 61, 62, 75, 7,
+	68, 66, 69, 70, 77, 60, 64, 65, 66, 69,
+	70, 133, 34, 64, 65, 26, 139, 63, 48, 118,
+	29, 78, 152, 113, 63, 51, 110, 109, 96, 94,
+	39, 56, 140, 85, 86, 73, 39, 81, 82, 83,
+	84, 71, 55, 53, 59, 30, 72, 58, 49, 128,
+	98, 79, 23, 141, 57, 21, 89, 154, 151, 146,
+	143, 114, 90, 91, 93, 80, 95, 50, 31, 5,
+	22, 87, 88, 85, 86, 42, 134, 43, 99, 44,
+	41, 46, 27, 20, 17, 4, 138, 137, 14, 15,
+	13, 116, 14, 15, 33, 18, 8, 115, 32, 3,
+	108, 9, 123, 124, 129, 125, 126, 119, 120, 121,
+	122, 131, 19, 107, 106, 105, 104, 103, 102, 101,
+	74, 135, 142, 111, 92, 52, 130, 54, 144, 136,
+	145, 112, 40, 147, 38, 148, 150, 149, 37, 36,
+	35, 153, 100, 132, 155, 45, 25, 10, 47, 24,
+	6, 2, 1, 16, 67, 11,
 }
 
 var yyPact = [...]int16{
-	101, -1000, -1000, 75, 41, -1000, 95, 86, 74, 98,
-	86, 72, -1000, -1000, -1000, -1000, 32, 25, -1000, -1000,
-	-1000, 94, -1000, 69, -6, 18, 40, 25, 91, 71,
-	67, -1000, -1000, -1000, -12, 71, -1000, -1000, -1000, 39,
-	-1000, 54, 17, -1000, 15, 7, 31, 95, -1000, -1000,
-	-1000, 4, 14, 4, -3, -5, -4, 94, -1000, 37,
-	16, 55, -1000, 4, 4, 4, -1000, -1000, -1000, -1000,
-	-1000, 4, 2, 4, 1, 22, -1000, -1000, 95, -1000,
-	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, 0,
-	-1000, -1000, -1, -1000, -1000, -2, 36, -1000, -5, -6,
-	20, 4, 4, 4, 4, 4, 4, 4, 4, -1000,
-	-1000, 21, -6, -1000, -1000, 22, -16, -1000, 60, 59,
-	59, 59, 59, 55, 55, -1000, -1000, -1000, 4, 81,
-	78, -1000, 35, 29, -1000, 34, -1000, -6, -1000, 94,
-	21, -1000, -6, 19, -1000, -1000, -1000, -1000, 20, -1000,
+	105, -1000, -1000, 79, 50, -1000, 101, 90, 78, 99,
+	90, 77, -1000, -1000, -1000, -1000, 35, 31, -1000, -1000,
+	-1000, 94, -1000, 76, -4, 23, 49, 31, 97, 74,
+	75, -1000, -1000, -1000, -7, 74, -1000, -1000, -1000, 48,
+	-1000, 15, 21, -1000, 20, 8, 34, 101, -1000, -1000,
+	-1000, 2, 19, 2, 13, -5, -3, 94, -1000, 46,
+	22, 58, -1000, 2, 2, 2, -1000, -1000, -1000, -1000,
+	-1000, 2, 6, 2, 5, 29, -1000, -1000, 101, -1000,
+	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, 4,
+	-1000, -1000, 3, -1000, -1000, 0, 42, -1000, -5, -4,
+	-2, 2, 2, 2, 2, 2, 2, 2, 2, -1000,
+	-1000, 28, -4, -1000, -1000, 29, -15, -1000, 70, 62,
+	62, 62, 62, 58, 58, -1000, -1000, -1000, 2, 85,
+	82, -1000, -9, 10, 33, -1000, 41, -1000, -4, 40,
+	2, 94, 28, -1000, -4, 39, -1000, -1, -1000, -1000,
+	-1000, -1000, 38, -2, -1000, -1000,
 }
 
 var yyPgo = [...]uint8{
-	0, 2, 159, 3, 15, 6, 7, 158, 157, 71,
-	156, 155, 154, 10, 97, 153, 1, 152, 151, 150,
-	148, 147, 0, 146, 18, 143, 141, 140, 138, 9,
-	137, 136, 135, 134, 133, 131, 130, 129, 128, 4,
-	127, 126, 8, 5, 125, 124, 123, 122, 111, 110,
-	109, 106,
+	0, 3, 165, 2, 15, 6, 7, 164, 163, 80,
+	162, 161, 160, 9, 111, 159, 1, 158, 157, 156,
+	155, 153, 152, 0, 151, 22, 150, 149, 148, 144,
+	10, 142, 141, 139, 138, 137, 136, 135, 134, 133,
+	4, 132, 130, 8, 5, 129, 128, 127, 126, 125,
+	124, 123, 110,
 }
 
 var yyR1 = [...]int8{
 	0, 10, 12, 15, 11, 17, 13, 13, 8, 9,
-	9, 1, 1, 14, 14, 19, 18, 2, 2, 21,
-	20, 20, 23, 22, 22, 16, 24, 24, 25, 25,
-	25, 25, 25, 26, 31, 27, 33, 32, 32, 34,
-	35, 28, 36, 29, 38, 37, 37, 40, 39, 39,
-	30, 41, 43, 43, 42, 42, 3, 44, 3, 45,
-	3, 46, 3, 47, 3, 48, 4, 49, 4, 4,
-	50, 5, 51, 5, 5, 6, 6, 6, 6, 6,
-	6, 7, 7,
+	9, 1, 1, 14, 14, 19, 18, 21, 21, 2,
+	2, 22, 20, 20, 24, 23, 23, 16, 25, 25,
+	26, 26, 26, 26, 26, 27, 32, 28, 34, 33,
+	33, 35, 36, 29, 37, 30, 39, 38, 38, 41,
+	40, 40, 31, 42, 44, 44, 43, 43, 3, 45,
+	3, 46, 3, 47, 3, 48, 3, 49, 4, 50,
+	4, 4, 51, 5, 52, 5, 5, 6, 6, 6,
+	6, 6, 6, 7, 7,
 }
 
 var yyR2 = [...]int8{
 	0, 1, 0, 0, 10, 0, 7, 0, 2, 3,
-	0, 1, 1, 2, 0, 0, 11, 1, 1, 0,
-	5, 0, 0, 6, 0, 3, 2, 0, 1, 1,
-	1, 2, 1, 4, 0, 8, 0, 3, 0, 0,
-	0, 9, 0, 5, 0, 3, 0, 0, 4, 0,
-	5, 2, 3, 0, 1, 1, 1, 0, 4, 0,
-	4, 0, 4, 0, 4, 0, 4, 0, 4, 1,
-	0, 4, 0, 4, 1, 3, 2, 2, 1, 1,
-	1, 1, 1,
+	0, 1, 1, 2, 0, 0, 12, 5, 0, 1,
+	1, 0, 5, 0, 0, 6, 0, 3, 2, 0,
+	1, 1, 1, 2, 1, 4, 0, 8, 0, 3,
+	0, 0, 0, 9, 0, 5, 0, 3, 0, 0,
+	4, 0, 5, 2, 3, 0, 1, 1, 1, 0,
+	4, 0, 4, 0, 4, 0, 4, 0, 4, 0,
+	4, 1, 0, 4, 0, 4, 1, 3, 2, 2,
+	1, 1, 1, 1, 1,
 }
 
 var yyChk = [...]int16{
 	-1000, -10, -11, 4, 16, 29, -12, -13, 5, -14,
 	-18, -2, -1, 10, 8, 9, -8, 16, 6, -14,
 	16, 30, -9, 31, -15, -19, -1, 16, -16, 34,
-	32, 29, -9, 7, -24, -25, -26, -27, -28, -29,
-	-30, 16, 11, 13, 15, -20, 16, -17, 35, -24,
-	29, 20, -36, 32, -34, 32, 33, 30, -13, -3,
-	-4, -5, -6, 32, 21, 22, 16, -7, -29, 17,
-	18, 32, -3, 32, -41, -42, -3, 19, 34, -1,
+	32, 29, -9, 7, -25, -26, -27, -28, -29, -30,
+	-31, 16, 11, 13, 15, -20, 16, -17, 35, -25,
+	29, 20, -37, 32, -35, 32, 33, 30, -13, -3,
+	-4, -5, -6, 32, 21, 22, 16, -7, -30, 17,
+	18, 32, -3, 32, -42, -43, -3, 19, 34, -1,
 	29, 25, 26, 27, 28, 21, 22, 23, 24, -3,
-	-6, -6, -37, -3, 33, -3, 33, -43, 31, -13,
-	-21, -44, -45, -46, -47, -48, -49, -50, -51, 33,
-	33, -38, -31, 33, 29, -42, -16, -22, 31, -4,
-	-4, -4, -4, -5, -5, -6, -6, -39, 31, -16,
-	-35, -43, 35, 16, -3, -32, 12, 14, 29, 30,
-	-40, 29, -33, -16, -1, -39, -16, 29, -23, -22,
+	-6, -6, -38, -3, 33, -3, 33, -44, 31, -13,
+	-22, -45, -46, -47, -48, -49, -50, -51, -52, 33,
+	33, -39, -32, 33, 29, -43, -16, -23, 31, -4,
+	-4, -4, -4, -5, -5, -6, -6, -40, 31, -16,
+	-36, -44, -21, 36, 16, -3, -33, 12, 14, 35,
+	32, 30, -41, 29, -34, -16, 29, -3, -1, -40,
+	-16, 29, 33, -24, 29, -23,
 }
 
 var yyDef = [...]int8{
 	0, -2, 1, 0, 0, 2, 7, 14, 0, 0,
-	14, 0, 17, 18, 11, 12, 0, 10, 3, 13,
-	15, 0, 8, 0, 0, 0, 0, 10, 0, 27,
-	21, 5, 9, 4, 0, 27, 28, 29, 30, 0,
-	32, 42, 0, 39, 0, 0, 0, 7, 25, 26,
-	31, 0, 0, 0, 0, 0, 0, 0, 6, 0,
-	56, 69, 74, 0, 0, 0, -2, 79, 80, 81,
-	82, 46, 0, 0, 0, 53, 54, 55, 7, 19,
-	33, 57, 59, 61, 63, 65, 67, 70, 72, 0,
-	76, 77, 0, 44, 34, 0, 0, 51, 0, 0,
-	24, 0, 0, 0, 0, 0, 0, 0, 0, 75,
-	43, 49, 0, 40, 50, 53, 0, 20, 0, 58,
-	60, 62, 64, 66, 68, 71, 73, 45, 0, 38,
-	0, 52, 0, 0, 47, 0, 36, 0, 16, 0,
-	49, 35, 0, 0, 22, 48, 37, 41, 24, 23,
+	14, 0, 19, 20, 11, 12, 0, 10, 3, 13,
+	15, 0, 8, 0, 0, 0, 0, 10, 0, 29,
+	23, 5, 9, 4, 0, 29, 30, 31, 32, 0,
+	34, 44, 0, 41, 0, 0, 0, 7, 27, 28,
+	33, 0, 0, 0, 0, 0, 0, 0, 6, 0,
+	58, 71, 76, 0, 0, 0, -2, 81, 82, 83,
+	84, 48, 0, 0, 0, 55, 56, 57, 7, 21,
+	35, 59, 61, 63, 65, 67, 69, 72, 74, 0,
+	78, 79, 0, 46, 36, 0, 0, 53, 0, 0,
+	26, 0, 0, 0, 0, 0, 0, 0, 0, 77,
+	45, 51, 0, 42, 52, 55, 18, 22, 0, 60,
+	62, 64, 66, 68, 70, 73, 75, 47, 0, 40,
+	0, 54, 0, 0, 0, 49, 0, 38, 0, 0,
+	0, 0, 51, 37, 0, 0, 16, 0, 24, 50,
+	39, 43, 0, 26, 17, 25,
 }
 
 var yyTok1 = [...]int8{
@@ -637,39 +641,54 @@ yydefault:
 			yylex.(*PatitoLexer).Sem.SetFunctionStart(yyDollar[2].lit, yylex.(*PatitoLexer).Gen.NextQuad())
 		}
 	case 16:
-		yyDollar = yyS[yypt-11 : yypt+1]
+		yyDollar = yyS[yypt-12 : yypt+1]
 //line parser/parser.y:111
 		{
 			yylex.(*PatitoLexer).Gen.GenerateEndFunc()
 			yylex.(*PatitoLexer).Sem.EndFunction()
 		}
 	case 17:
-		yyDollar = yyS[yypt-1 : yypt+1]
+		yyDollar = yyS[yypt-5 : yypt+1]
 //line parser/parser.y:119
+		{
+			yylex.(*PatitoLexer).Sem.CheckReturn(yyDollar[3].typ)
+
+			returnAddr := yylex.(*PatitoLexer).Sem.GetCurrentFunctionReturnAddress()
+			yylex.(*PatitoLexer).Gen.GenerateReturn(returnAddr)
+		}
+	case 18:
+		yyDollar = yyS[yypt-0 : yypt+1]
+//line parser/parser.y:126
+		{
+			yylex.(*PatitoLexer).Sem.CheckMissingReturn()
+		}
+	case 19:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line parser/parser.y:133
 		{
 			yyVAL.typ = yyDollar[1].typ
 		}
-	case 18:
+	case 20:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:123
+//line parser/parser.y:137
 		{
 			yyVAL.typ = semantic.TypeNula
 		}
-	case 19:
+	case 21:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser/parser.y:130
+//line parser/parser.y:144
 		{
 			yylex.(*PatitoLexer).Sem.AddParam(yyDollar[1].lit, yyDollar[3].typ)
 		}
-	case 22:
+	case 24:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:139
+//line parser/parser.y:153
 		{
 			yylex.(*PatitoLexer).Sem.AddParam(yyDollar[2].lit, yyDollar[4].typ)
 		}
-	case 33:
+	case 35:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:165
+//line parser/parser.y:179
 		{
 			destAddr, varType := yylex.(*PatitoLexer).Sem.GetVarAddressAndType(yyDollar[1].lit)
 
@@ -677,265 +696,272 @@ yydefault:
 				yylex.(*PatitoLexer).Gen.GenerateAssignment(destAddr, varType)
 			}
 		}
-	case 34:
+	case 36:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:176
+//line parser/parser.y:190
 		{
 			yylex.(*PatitoLexer).Gen.StartIf()
 		}
-	case 36:
+	case 38:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:184
+//line parser/parser.y:198
 		{
 			yylex.(*PatitoLexer).Gen.ElseIf()
 		}
-	case 37:
+	case 39:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser/parser.y:188
+//line parser/parser.y:202
 		{
 			yylex.(*PatitoLexer).Gen.EndIfElse()
 		}
-	case 38:
+	case 40:
 		yyDollar = yyS[yypt-0 : yypt+1]
-//line parser/parser.y:192
+//line parser/parser.y:206
 		{
 			yylex.(*PatitoLexer).Gen.EndIf()
 		}
-	case 39:
+	case 41:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:199
+//line parser/parser.y:213
 		{
 			yylex.(*PatitoLexer).Gen.StartWhile()
 		}
-	case 40:
+	case 42:
 		yyDollar = yyS[yypt-5 : yypt+1]
-//line parser/parser.y:203
+//line parser/parser.y:217
 		{
 			yylex.(*PatitoLexer).Gen.WhileCondition()
 		}
-	case 41:
+	case 43:
 		yyDollar = yyS[yypt-9 : yypt+1]
-//line parser/parser.y:207
+//line parser/parser.y:221
 		{
 			yylex.(*PatitoLexer).Gen.EndWhile()
 		}
-	case 42:
+	case 44:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:214
+//line parser/parser.y:228
 		{
 			yylex.(*PatitoLexer).Sem.StartCall(yyDollar[1].lit)
 			yylex.(*PatitoLexer).Gen.GenerateERA(yyDollar[1].lit)
 		}
-	case 43:
+	case 45:
 		yyDollar = yyS[yypt-5 : yypt+1]
-//line parser/parser.y:219
+//line parser/parser.y:233
 		{
 			startQuad := yylex.(*PatitoLexer).Sem.EndCall(yyDollar[1].lit)
 			yylex.(*PatitoLexer).Gen.GenerateGOSUB(yyDollar[1].lit, startQuad)
 		}
-	case 44:
+	case 46:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:227
+//line parser/parser.y:241
 		{
 			param, ok := yylex.(*PatitoLexer).Sem.GetCurrentParam()
 			if ok {
 				yylex.(*PatitoLexer).Gen.GenerateParam(param.Type, param.Address)
 			}
 		}
-	case 47:
+	case 49:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:239
+//line parser/parser.y:253
 		{
 			param, ok := yylex.(*PatitoLexer).Sem.GetCurrentParam()
 			if ok {
 				yylex.(*PatitoLexer).Gen.GenerateParam(param.Type, param.Address)
 			}
 		}
-	case 54:
+	case 56:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:264
+//line parser/parser.y:278
 		{
 			value := yylex.(*PatitoLexer).Gen.PopOperandForPrint()
 			yylex.(*PatitoLexer).Gen.GeneratePrint(value)
 		}
-	case 55:
+	case 57:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:269
+//line parser/parser.y:283
 		{
 			addr := yylex.(*PatitoLexer).Sem.AddConstant(yyDollar[1].lit, semantic.TypeString)
 			yylex.(*PatitoLexer).Gen.GeneratePrint(addr)
 		}
-	case 56:
+	case 58:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:277
+//line parser/parser.y:291
 		{
 			yyVAL.typ = yyDollar[1].typ
 		}
-	case 57:
+	case 59:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:281
+//line parser/parser.y:295
 		{
 			yylex.(*PatitoLexer).Gen.PushOperator(">")
 		}
-	case 58:
-		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:285
-		{
-			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
-			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
-		}
-	case 59:
-		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:290
-		{
-			yylex.(*PatitoLexer).Gen.PushOperator("<")
-		}
 	case 60:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:294
+//line parser/parser.y:299
 		{
 			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
 			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
 		}
 	case 61:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:299
+//line parser/parser.y:304
 		{
-			yylex.(*PatitoLexer).Gen.PushOperator("!=")
+			yylex.(*PatitoLexer).Gen.PushOperator("<")
 		}
 	case 62:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:303
+//line parser/parser.y:308
 		{
 			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
 			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
 		}
 	case 63:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:308
+//line parser/parser.y:313
 		{
-			yylex.(*PatitoLexer).Gen.PushOperator("==")
+			yylex.(*PatitoLexer).Gen.PushOperator("!=")
 		}
 	case 64:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:312
+//line parser/parser.y:317
 		{
 			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
 			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
 		}
 	case 65:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:320
+//line parser/parser.y:322
 		{
-			yylex.(*PatitoLexer).Gen.PushOperator("+")
+			yylex.(*PatitoLexer).Gen.PushOperator("==")
 		}
 	case 66:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:324
+//line parser/parser.y:326
 		{
 			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
 			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
 		}
 	case 67:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:329
+//line parser/parser.y:334
 		{
-			yylex.(*PatitoLexer).Gen.PushOperator("-")
+			yylex.(*PatitoLexer).Gen.PushOperator("+")
 		}
 	case 68:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:333
+//line parser/parser.y:338
 		{
 			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
 			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
 		}
 	case 69:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:338
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line parser/parser.y:343
 		{
-			yyVAL.typ = yyDollar[1].typ
+			yylex.(*PatitoLexer).Gen.PushOperator("-")
 		}
 	case 70:
-		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:346
-		{
-			yylex.(*PatitoLexer).Gen.PushOperator("*")
-		}
-	case 71:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:350
+//line parser/parser.y:347
 		{
 			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
 			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
 		}
+	case 71:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line parser/parser.y:352
+		{
+			yyVAL.typ = yyDollar[1].typ
+		}
 	case 72:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:355
+//line parser/parser.y:360
 		{
-			yylex.(*PatitoLexer).Gen.PushOperator("/")
+			yylex.(*PatitoLexer).Gen.PushOperator("*")
 		}
 	case 73:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line parser/parser.y:359
+//line parser/parser.y:364
 		{
 			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
 			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
 		}
 	case 74:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line parser/parser.y:369
+		{
+			yylex.(*PatitoLexer).Gen.PushOperator("/")
+		}
+	case 75:
+		yyDollar = yyS[yypt-4 : yypt+1]
+//line parser/parser.y:373
+		{
+			yylex.(*PatitoLexer).Gen.GenerateBinaryOperation()
+			yyVAL.typ = yylex.(*PatitoLexer).Gen.PeekType()
+		}
+	case 76:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:364
+//line parser/parser.y:378
 		{
 			yyVAL.typ = yyDollar[1].typ
 		}
-	case 75:
-		yyDollar = yyS[yypt-3 : yypt+1]
-//line parser/parser.y:371
-		{
-			yyVAL.typ = yyDollar[2].typ
-		}
-	case 76:
-		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:375
-		{
-			yyVAL.typ = yyDollar[2].typ
-		}
 	case 77:
-		yyDollar = yyS[yypt-2 : yypt+1]
-//line parser/parser.y:379
+		yyDollar = yyS[yypt-3 : yypt+1]
+//line parser/parser.y:385
 		{
 			yyVAL.typ = yyDollar[2].typ
 		}
 	case 78:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line parser/parser.y:389
+		{
+			yyVAL.typ = yyDollar[2].typ
+		}
+	case 79:
+		yyDollar = yyS[yypt-2 : yypt+1]
+//line parser/parser.y:393
+		{
+			yyVAL.typ = yyDollar[2].typ
+		}
+	case 80:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:383
+//line parser/parser.y:397
 		{
 			addr, t := yylex.(*PatitoLexer).Sem.GetVarAddressAndType(yyDollar[1].lit)
 			yylex.(*PatitoLexer).Gen.PushOperand(addr, t)
 			yyVAL.typ = t
 		}
-	case 79:
+	case 81:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:389
+//line parser/parser.y:403
 		{
 			yyVAL.typ = yyDollar[1].typ
 		}
-	case 80:
+	case 82:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:393
+//line parser/parser.y:407
 		{
-			yyVAL.typ = semantic.TypeNula
+			t := yylex.(*PatitoLexer).Sem.GetLastCallReturnType()
+
+			if t != semantic.TypeNula {
+				returnAddr := yylex.(*PatitoLexer).Sem.GetLastCallReturnAddress()
+				yylex.(*PatitoLexer).Gen.GenerateFunctionReturnCopy(returnAddr, t)
+			}
+
+			yyVAL.typ = t
 		}
-	case 81:
+	case 83:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:400
+//line parser/parser.y:421
 		{
 			addr := yylex.(*PatitoLexer).Sem.AddConstant(yyDollar[1].lit, semantic.TypeEntero)
 			yylex.(*PatitoLexer).Gen.PushOperand(addr, semantic.TypeEntero)
 			yyVAL.typ = semantic.TypeEntero
 		}
-	case 82:
+	case 84:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line parser/parser.y:406
+//line parser/parser.y:427
 		{
 			addr := yylex.(*PatitoLexer).Sem.AddConstant(yyDollar[1].lit, semantic.TypeFlotante)
 			yylex.(*PatitoLexer).Gen.PushOperand(addr, semantic.TypeFlotante)

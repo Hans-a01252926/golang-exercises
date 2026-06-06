@@ -7,11 +7,12 @@ type FunctionDirectory struct {
 }
 
 type FunctionEntry struct {
-	Name       string
-	ReturnType Type
-	Params     []ParamEntry
-	Vars       *VarTable
-	StartQuad  int
+	Name          string
+	ReturnType    Type
+	Params        []ParamEntry
+	Vars          *VarTable
+	StartQuad     int
+	ReturnAddress int
 
 	localIntCount    int
 	localFloatCount  int
@@ -49,10 +50,12 @@ func (fd *FunctionDirectory) AddFunction(name string, returnType Type) error {
 	}
 
 	fd.Functions[name] = &FunctionEntry{
-		Name:       name,
-		ReturnType: returnType,
-		Params:     []ParamEntry{},
-		Vars:       NewVarTable(),
+		Name:          name,
+		ReturnType:    returnType,
+		Params:        []ParamEntry{},
+		Vars:          NewVarTable(),
+		StartQuad:     -1,
+		ReturnAddress: -1,
 	}
 
 	return nil
@@ -117,4 +120,10 @@ func (fd *FunctionDirectory) SetFunctionStart(name string, startQuad int) error 
 
 	fn.StartQuad = startQuad
 	return nil
+}
+
+func (fd *FunctionDirectory) SetFunctionReturnAddress(name string, addr int) {
+	if fn, ok := fd.Functions[name]; ok {
+		fn.ReturnAddress = addr
+	}
 }

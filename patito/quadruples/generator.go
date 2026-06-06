@@ -281,7 +281,7 @@ func (g *Generator) GenerateParam(paramType semantic.Type, paramAddress int) {
 	g.AddQuad("PARAM", argOperand, "_", fmt.Sprintf("%d", paramAddress))
 }
 
-func (g *Generator) GenerateReturn() {
+func (g *Generator) GenerateReturn(returnAddress int) {
 	value, ok1 := g.Operands.Pop()
 	_, ok2 := g.Types.Pop()
 
@@ -290,5 +290,14 @@ func (g *Generator) GenerateReturn() {
 		return
 	}
 
-	g.AddQuad("RETURN", value, "_", "_")
+	g.AddQuad("RETURN", value, "_", fmt.Sprintf("%d", returnAddress))
+}
+
+func (g *Generator) GenerateFunctionReturnCopy(returnAddress int, returnType semantic.Type) {
+	temp := g.NewTemp(returnType)
+
+	g.AddQuad("=", fmt.Sprintf("%d", returnAddress), "_", temp)
+
+	g.Operands.Push(temp)
+	g.Types.Push(returnType)
 }

@@ -15,6 +15,9 @@ type SemanticContext struct {
 	Allocator   *memoria.AddressAllocator
 	Constants   *memoria.ConstantsTable
 	CurrentCall *CallContext
+
+	LastCallReturnType    Type
+	LastCallReturnAddress int
 }
 
 type CallContext struct {
@@ -24,13 +27,15 @@ type CallContext struct {
 
 func NewSemanticContext(allocator *memoria.AddressAllocator) *SemanticContext {
 	return &SemanticContext{
-		DirFunc:     NewFunctionDirectory(),
-		Cube:        NewSemanticCube(),
-		CurrentFunc: "global",
-		CurrentType: TypeNula,
-		Errors:      []string{},
-		Allocator:   allocator,
-		Constants:   memoria.NewConstantsTable(allocator),
+		DirFunc:               NewFunctionDirectory(),
+		Cube:                  NewSemanticCube(),
+		CurrentFunc:           "global",
+		CurrentType:           TypeNula,
+		Errors:                []string{},
+		Allocator:             allocator,
+		Constants:             memoria.NewConstantsTable(allocator),
+		LastCallReturnType:    TypeNula,
+		LastCallReturnAddress: -1,
 	}
 }
 
@@ -74,6 +79,16 @@ func (s *SemanticContext) StartFunction(name string, returnType Type) {
 	if err != nil {
 		s.AddError(err.Error())
 		return
+	}
+
+	if returnType != TypeNula {
+		addr, err := s.Allocator.AllocateGlobal(string(returnType))
+		if err != nil {
+			s.AddError(err.Error())
+			return
+		}
+
+		s.DirFunc.SetFunctionReturnAddress(name, int(addr))
 	}
 
 	s.CurrentFunc = name
@@ -180,12 +195,17 @@ func (s *SemanticContext) GetCurrentParam() (ParamEntry, bool) {
 func (s *SemanticContext) EndCall(name string) int {
 	fn, ok := s.DirFunc.GetFunction(name)
 	if !ok {
+		s.LastCallReturnType = TypeError
+		s.LastCallReturnAddress = -1
 		return -1
 	}
 
 	if s.CurrentCall != nil && s.CurrentCall.ArgIndex != len(fn.Params) {
 		s.AddError(fmt.Sprintf("cantidad incorrecta de argumentos en llamada a %s", name))
 	}
+
+	s.LastCallReturnType = fn.ReturnType
+	s.LastCallReturnAddress = fn.ReturnAddress
 
 	s.CurrentCall = nil
 	return fn.StartQuad
@@ -241,4 +261,22 @@ func (s *SemanticContext) CheckMissingReturn() {
 	if fn.ReturnType != TypeNula {
 		s.AddError(fmt.Sprintf("función %s debe tener return", fn.Name))
 	}
+}
+
+func (s *SemanticContext) GetCurrentFunctionReturnAddress() int {
+	fn, ok := s.DirFunc.GetFunction(s.CurrentFunc)
+	if !ok {
+		s.AddError("función actual no encontrada: " + s.CurrentFunc)
+		return -1
+	}
+
+	return fn.ReturnAddress
+}
+
+func (s *SemanticContext) GetLastCallReturnType() Type {
+	return s.LastCallReturnType
+}
+
+func (s *SemanticContext) GetLastCallReturnAddress() int {
+	return s.LastCallReturnAddress
 }
