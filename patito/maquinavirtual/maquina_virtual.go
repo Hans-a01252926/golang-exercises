@@ -56,7 +56,23 @@ func (vm *VirtualMachine) Run() error {
 				vm.IP = dest
 				continue
 			}
-
+		case "ERA":
+			vm.era(q)
+		case "PARAM":
+			if err := vm.param(q); err != nil {
+				return err
+			}
+		case "GOSUB":
+			vm.gosub(q)
+			continue
+		case "ENDFunc":
+			vm.endFunc()
+			continue
+		case "RETURN":
+			if err := vm.returnFunc(q); err != nil {
+				return err
+			}
+			continue
 		default:
 			return fmt.Errorf("operador no soportado: %s", q.Operator)
 		}
@@ -216,4 +232,54 @@ func applyRelational(op string, left interface{}, right interface{}) (bool, erro
 	default:
 		return false, fmt.Errorf("operador relacional no soportado: %s", op)
 	}
+}
+
+func (vm *VirtualMachine) era(q quadruples.Quadruple) {
+	vm.Memory.PendingERA = NewActivationRecord(q.Left, vm.IP+1)
+}
+
+func (vm *VirtualMachine) param(q quadruples.Quadruple) error {
+	argAddr, _ := strconv.Atoi(q.Left)
+	paramAddr, _ := strconv.Atoi(q.Result)
+
+	value, err := vm.Memory.Get(argAddr)
+	if err != nil {
+		return err
+	}
+
+	vm.Memory.PendingERA.LocalMemory.Set(paramAddr, value)
+	return nil
+}
+
+func (vm *VirtualMachine) gosub(q quadruples.Quadruple) {
+	dest, _ := strconv.Atoi(q.Result)
+
+	vm.Memory.PendingERA.ReturnIP = vm.IP + 1
+	vm.Memory.CallStack = append(vm.Memory.CallStack, vm.Memory.PendingERA)
+	vm.Memory.PendingERA = nil
+
+	vm.IP = dest
+}
+
+func (vm *VirtualMachine) endFunc() {
+	top := vm.Memory.CallStack[len(vm.Memory.CallStack)-1]
+	vm.Memory.CallStack = vm.Memory.CallStack[:len(vm.Memory.CallStack)-1]
+	vm.IP = top.ReturnIP
+}
+
+func (vm *VirtualMachine) returnFunc(q quadruples.Quadruple) error {
+	valueAddr, err := strconv.Atoi(q.Left)
+	if err != nil {
+		return err
+	}
+
+	value, err := vm.Memory.Get(valueAddr)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("RETURN:", value)
+
+	vm.endFunc()
+	return nil
 }
