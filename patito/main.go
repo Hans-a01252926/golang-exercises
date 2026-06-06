@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"patito/maquinavirtual"
 	"patito/parser"
 )
 
@@ -45,5 +46,17 @@ func main() {
 	fmt.Println("\nCuádruplos generados:")
 	for i, q := range l.Gen.Quadruples {
 		fmt.Printf("%d: %s\n", i, q.String())
+	}
+
+	fmt.Println("\nEjecutando programa Patito...")
+	vm := maquinavirtual.NewVirtualMachine(l.Gen.Quadruples)
+
+	// Cargar constantes a memoria de ejecución
+	for _, c := range l.Sem.Constants.Constants {
+		vm.LoadConstant(int(c.Address), c.Literal, string(c.Type))
+	}
+
+	if err := vm.Run(); err != nil {
+		fmt.Println("Error en ejecución:", err)
 	}
 }

@@ -82,6 +82,21 @@ func (vm *VirtualMachine) Run() error {
 	return nil
 }
 
+func (vm *VirtualMachine) LoadConstant(address int, literal string, typ string) {
+	switch typ {
+	case "entero":
+		value, _ := strconv.Atoi(literal)
+		vm.Memory.ConstMemory.Set(address, value)
+
+	case "flotante":
+		value, _ := strconv.ParseFloat(literal, 64)
+		vm.Memory.ConstMemory.Set(address, value)
+
+	case "string":
+		vm.Memory.ConstMemory.Set(address, literal)
+	}
+}
+
 func parseAddr(s string) int {
 	addr, _ := strconv.Atoi(s)
 	return addr

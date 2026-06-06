@@ -1,0 +1,10 @@
+programa prueba;
+
+vars x, y, z : entero;
+
+inicio {
+    x = 2;
+    y = 3;
+    z = x + y;
+    escribe(z);
+} fin

@@ -1,0 +1,11 @@
+programa prueba;
+
+nula saluda() {
+    {
+        escribe("hola");
+    }
+};
+
+inicio {
+    saluda();
+} fin

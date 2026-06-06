@@ -1,0 +1,14 @@
+programa prueba;
+
+vars x, y : entero;
+
+inicio {
+    x = 5;
+    y = 10;
+
+    si (x < y) {
+        escribe("menor");
+    } sino {
+        escribe("mayor");
+    };
+} fin
