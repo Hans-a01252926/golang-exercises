@@ -1,6 +1,7 @@
 programa patito;
 
-vars i, j, k : entero;
+vars i : flotante;
+vars j, k : entero;
 vars f : flotante;
 
 nula uno(a : entero, b : entero) {
@@ -30,7 +31,7 @@ nula dos(a : entero, g : flotante) {
 
 inicio {
     i = 2;
-    k = i + 1;
+    k = 3;
     f = 3.14;
 
     mientras (i > 0) haz {

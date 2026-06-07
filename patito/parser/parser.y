@@ -13,13 +13,14 @@ import (
 }
 
 %token PROGRAMA VARS INICIO FIN
-%token ENTERO FLOTANTE NULA
+%token ENTERO FLOTANTE STRING BOOL NULA
 %token SI SINO MIENTRAS HAZ ESCRIBE
 
 %token <lit> ID
 %token <lit> CTE_ENT
 %token <lit> CTE_FLOT
 %token <lit> LETRERO
+%token <lit> VERDADERO FALSO
 
 %token ASIGNA
 %token MAS MENOS
@@ -93,6 +94,14 @@ tipo:
 	| FLOTANTE
 	{
 		$$ = semantic.TypeFlotante
+	}
+	| STRING
+	{
+		$$ = semantic.TypeString
+	}
+	| BOOL
+	{
+		$$ = semantic.TypeBool
 	}
 	;
 	
@@ -279,11 +288,6 @@ imprime_val:
 		value := yylex.(*PatitoLexer).Gen.PopOperandForPrint()
 		yylex.(*PatitoLexer).Gen.GeneratePrint(value)
 	}
-	| LETRERO
-	{		
-		addr := yylex.(*PatitoLexer).Sem.AddConstant($1, semantic.TypeString)
-		yylex.(*PatitoLexer).Gen.GeneratePrint(addr)
-	}
 	;
 
 expresion:
@@ -428,6 +432,24 @@ cte:
 		addr := yylex.(*PatitoLexer).Sem.AddConstant($1, semantic.TypeFlotante)
 		yylex.(*PatitoLexer).Gen.PushOperand(addr, semantic.TypeFlotante)
 		$$ = semantic.TypeFlotante
+	}
+	| VERDADERO
+	{
+		addr := yylex.(*PatitoLexer).Sem.AddConstant("verdadero", semantic.TypeBool)
+		yylex.(*PatitoLexer).Gen.PushOperand(addr, semantic.TypeBool)
+		$$ = semantic.TypeBool
+	}
+	| FALSO
+	{
+		addr := yylex.(*PatitoLexer).Sem.AddConstant("falso", semantic.TypeBool)
+		yylex.(*PatitoLexer).Gen.PushOperand(addr, semantic.TypeBool)
+		$$ = semantic.TypeBool
+	}
+	| LETRERO
+	{
+		addr := yylex.(*PatitoLexer).Sem.AddConstant($1, semantic.TypeString)
+		yylex.(*PatitoLexer).Gen.PushOperand(addr, semantic.TypeString)
+		$$ = semantic.TypeString
 	}
 	;
 

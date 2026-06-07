@@ -54,10 +54,18 @@ func NewSemanticCube() SemanticCube {
 		cube[CubeKey{TypeFlotante, op, TypeFlotante}] = TypeBool
 	}
 
+	cube[CubeKey{TypeString, OpIgual, TypeString}] = TypeBool
+	cube[CubeKey{TypeString, OpDif, TypeString}] = TypeBool
+
+	cube[CubeKey{TypeBool, OpIgual, TypeBool}] = TypeBool
+	cube[CubeKey{TypeBool, OpDif, TypeBool}] = TypeBool
+
 	// Asignación
 	cube[CubeKey{TypeEntero, OpAsigna, TypeEntero}] = TypeEntero
 	cube[CubeKey{TypeFlotante, OpAsigna, TypeEntero}] = TypeFlotante
 	cube[CubeKey{TypeFlotante, OpAsigna, TypeFlotante}] = TypeFlotante
+	cube[CubeKey{TypeString, OpAsigna, TypeString}] = TypeString
+	cube[CubeKey{TypeBool, OpAsigna, TypeBool}] = TypeBool
 
 	return cube
 }

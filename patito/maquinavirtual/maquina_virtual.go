@@ -94,6 +94,12 @@ func (vm *VirtualMachine) LoadConstant(address int, literal string, typ string) 
 
 	case "string":
 		vm.Memory.ConstMemory.Set(address, literal)
+	case "bool":
+		value := false
+		if literal == "verdadero" || literal == "true" {
+			value = true
+		}
+		vm.Memory.ConstMemory.Set(address, value)
 	}
 }
 
@@ -200,6 +206,24 @@ func toFloat64(v interface{}) (float64, error) {
 }
 
 func applyArithmetic(op string, left interface{}, right interface{}) (interface{}, error) {
+	// Si ambos son int y no es división, conservamos int.
+	lInt, leftIsInt := left.(int)
+	rInt, rightIsInt := right.(int)
+
+	if leftIsInt && rightIsInt && op != "/" {
+		switch op {
+		case "+":
+			return lInt + rInt, nil
+		case "-":
+			return lInt - rInt, nil
+		case "*":
+			return lInt * rInt, nil
+		default:
+			return nil, fmt.Errorf("operador aritmético no soportado: %s", op)
+		}
+	}
+
+	// Para flotantes o división, usamos float64.
 	l, err := toFloat64(left)
 	if err != nil {
 		return nil, err
@@ -225,6 +249,33 @@ func applyArithmetic(op string, left interface{}, right interface{}) (interface{
 }
 
 func applyRelational(op string, left interface{}, right interface{}) (bool, error) {
+	switch op {
+	case "==", "!=":
+		// Si ambos son numéricos, comparamos como número aunque uno sea int y otro float64.
+		if isNumber(left) && isNumber(right) {
+			l, err := toFloat64(left)
+			if err != nil {
+				return false, err
+			}
+
+			r, err := toFloat64(right)
+			if err != nil {
+				return false, err
+			}
+
+			if op == "==" {
+				return l == r, nil
+			}
+			return l != r, nil
+		}
+
+		// Para string y bool, comparación directa.
+		if op == "==" {
+			return left == right, nil
+		}
+		return left != right, nil
+	}
+
 	l, err := toFloat64(left)
 	if err != nil {
 		return false, err
@@ -240,12 +291,17 @@ func applyRelational(op string, left interface{}, right interface{}) (bool, erro
 		return l < r, nil
 	case ">":
 		return l > r, nil
-	case "==":
-		return l == r, nil
-	case "!=":
-		return l != r, nil
 	default:
 		return false, fmt.Errorf("operador relacional no soportado: %s", op)
+	}
+}
+
+func isNumber(v interface{}) bool {
+	switch v.(type) {
+	case int, float64:
+		return true
+	default:
+		return false
 	}
 }
 

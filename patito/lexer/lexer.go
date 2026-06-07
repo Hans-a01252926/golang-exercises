@@ -5,19 +5,23 @@ import (
 )
 
 var keywords = map[string]token.TokenType{
-	"programa": token.PROGRAMA,
-	"vars":     token.VARS,
-	"inicio":   token.INICIO,
-	"fin":      token.FIN,
-	"entero":   token.ENTERO,
-	"flotante": token.FLOTANTE,
-	"nula":     token.NULA,
-	"si":       token.SI,
-	"sino":     token.SINO,
-	"mientras": token.MIENTRAS,
-	"haz":      token.HAZ,
-	"escribe":  token.ESCRIBE,
-	"return":   token.RETURN,
+	"programa":  token.PROGRAMA,
+	"vars":      token.VARS,
+	"inicio":    token.INICIO,
+	"fin":       token.FIN,
+	"entero":    token.ENTERO,
+	"flotante":  token.FLOTANTE,
+	"string":    token.STRING,
+	"bool":      token.BOOL,
+	"verdadero": token.VERDADERO,
+	"falso":     token.FALSO,
+	"nula":      token.NULA,
+	"si":        token.SI,
+	"sino":      token.SINO,
+	"mientras":  token.MIENTRAS,
+	"haz":       token.HAZ,
+	"escribe":   token.ESCRIBE,
+	"return":    token.RETURN,
 }
 
 type Lexer struct {

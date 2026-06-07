@@ -1,0 +1,24 @@
+programa pruebaFactorialCiclo;
+
+vars resultado : entero;
+
+entero factorialCiclo(n : entero) {
+    vars r : entero;
+
+    {
+        r = 1;
+
+        mientras (n > 1) haz {
+            r = r * n;
+            n = n - 1;
+        };
+    }
+
+    return(r);
+};
+
+inicio {
+    resultado = factorialCiclo(5);
+    escribe("factorial ciclo");
+    escribe(resultado);
+} fin

@@ -29,17 +29,17 @@ func (em *ExecutionMemory) CurrentLocal() *Memory {
 
 func (em *ExecutionMemory) Set(addr int, value interface{}) error {
 	switch {
-	case addr >= 1000 && addr < 4000:
+	case addr >= 1000 && addr < 5000:
 		em.GlobalMemory.Set(addr, value)
-	case addr >= 5000 && addr < 8000:
+	case addr >= 5000 && addr < 9000:
 		local := em.CurrentLocal()
 		if local == nil {
 			return fmt.Errorf("no hay memoria local activa para dirección %d", addr)
 		}
 		local.Set(addr, value)
-	case addr >= 9000 && addr < 12000:
+	case addr >= 9000 && addr < 13000:
 		em.TempMemory.Set(addr, value)
-	case addr >= 13000 && addr < 16000:
+	case addr >= 13000 && addr < 17000:
 		em.ConstMemory.Set(addr, value)
 	default:
 		return fmt.Errorf("dirección fuera de rango: %d", addr)
@@ -49,17 +49,17 @@ func (em *ExecutionMemory) Set(addr int, value interface{}) error {
 
 func (em *ExecutionMemory) Get(addr int) (interface{}, error) {
 	switch {
-	case addr >= 1000 && addr < 4000:
+	case addr >= 1000 && addr < 5000:
 		return em.GlobalMemory.Get(addr)
-	case addr >= 5000 && addr < 8000:
+	case addr >= 5000 && addr < 9000:
 		local := em.CurrentLocal()
 		if local == nil {
 			return nil, fmt.Errorf("no hay memoria local activa para dirección %d", addr)
 		}
 		return local.Get(addr)
-	case addr >= 9000 && addr < 12000:
+	case addr >= 9000 && addr < 13000:
 		return em.TempMemory.Get(addr)
-	case addr >= 13000 && addr < 16000:
+	case addr >= 13000 && addr < 17000:
 		return em.ConstMemory.Get(addr)
 	default:
 		return nil, fmt.Errorf("dirección fuera de rango: %d", addr)

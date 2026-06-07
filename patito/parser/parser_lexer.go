@@ -66,6 +66,15 @@ func (p *PatitoLexer) Lex(lval *yySymType) int {
 		return ENTERO
 	case token.FLOTANTE:
 		return FLOTANTE
+	case token.STRING:
+		return STRING
+	case token.BOOL:
+		return BOOL
+
+	case token.VERDADERO:
+		return VERDADERO
+	case token.FALSO:
+		return FALSO
 	case token.NULA:
 		return NULA
 	case token.SI:

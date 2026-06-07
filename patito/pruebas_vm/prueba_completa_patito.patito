@@ -1,0 +1,122 @@
+programa pruebaCompleta;
+
+vars x, y, z, fact, factRec : entero;
+vars f, mitadValor : flotante;
+vars nombre, saludo : string;
+vars bandera, mayor : bool;
+
+nula imprimeLinea(texto : string) {
+    {
+        escribe(texto);
+    }
+};
+
+entero suma(a : entero, b : entero) {
+    {
+    }
+
+    return(a + b);
+};
+
+flotante mitad(a : flotante) {
+    {
+    }
+
+    return(a / 2.0);
+};
+
+string dameSaludo() {
+    {
+    }
+
+    return("hola desde funcion");
+};
+
+bool esMayor(a : entero, b : entero) {
+    {
+    }
+
+    return(a > b);
+};
+
+entero factorialCiclo(n : entero) {
+    vars r : entero;
+
+    {
+        r = 1;
+
+        mientras (n > 1) haz {
+            r = r * n;
+            n = n - 1;
+        };
+    }
+
+    return(r);
+};
+
+entero factorialRec(n : entero) {
+    vars r : entero;
+
+    {
+        si (n == 0) {
+            r = 1;
+        } sino {
+            r = n * factorialRec(n - 1);
+        };
+    }
+
+    return(r);
+};
+
+inicio {
+    x = 2;
+    y = 3;
+    z = suma(x, y) * 4;
+
+    escribe("resultado de suma por 4");
+    escribe(z);
+
+    f = 10.0;
+    mitadValor = mitad(f);
+
+    escribe("mitad de 10");
+    escribe(mitadValor);
+
+    nombre = "Hans";
+    saludo = dameSaludo();
+
+    escribe(nombre);
+    escribe(saludo);
+
+    bandera = verdadero;
+    mayor = esMayor(z, y);
+
+    si (bandera == verdadero) {
+        escribe("bandera verdadera");
+    } sino {
+        escribe("bandera falsa");
+    };
+
+    si (mayor == verdadero) {
+        escribe("z es mayor que y");
+    } sino {
+        escribe("z no es mayor que y");
+    };
+
+    escribe("while de x");
+    mientras (x < 5) haz {
+        escribe(x);
+        x = x + 1;
+    };
+
+    fact = factorialCiclo(5);
+    factRec = factorialRec(5);
+
+    escribe("factorial ciclo");
+    escribe(fact);
+
+    escribe("factorial recursivo");
+    escribe(factRec);
+
+    imprimeLinea("fin de prueba completa");
+} fin

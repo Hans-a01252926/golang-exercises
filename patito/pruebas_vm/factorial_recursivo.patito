@@ -1,0 +1,23 @@
+programa pruebaFactorialRecursivo;
+
+vars resultado : entero;
+
+entero factorialRec(n : entero) {
+    vars r : entero;
+
+    {
+        si (n == 0) {
+            r = 1;
+        } sino {
+            r = n * factorialRec(n - 1);
+        };
+    }
+
+    return(r);
+};
+
+inicio {
+    resultado = factorialRec(5);
+    escribe("factorial recursivo");
+    escribe(resultado);
+} fin
