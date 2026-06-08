@@ -1,0 +1,140 @@
+{
+  "quadruples": [
+    {
+      "Operator": "GOTO",
+      "Left": "_",
+      "Right": "_",
+      "Result": "11"
+    },
+    {
+      "Operator": "*",
+      "Left": "5000",
+      "Right": "13000",
+      "Result": "9000"
+    },
+    {
+      "Operator": "RETURN",
+      "Left": "9000",
+      "Right": "_",
+      "Result": "1002"
+    },
+    {
+      "Operator": "ENDFunc",
+      "Left": "_",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "ERA",
+      "Left": "uno",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "PARAM",
+      "Left": "5001",
+      "Right": "_",
+      "Result": "5000"
+    },
+    {
+      "Operator": "GOSUB",
+      "Left": "uno",
+      "Right": "_",
+      "Result": "1"
+    },
+    {
+      "Operator": "=",
+      "Left": "1002",
+      "Right": "_",
+      "Result": "9001"
+    },
+    {
+      "Operator": "*",
+      "Left": "5001",
+      "Right": "9001",
+      "Result": "9002"
+    },
+    {
+      "Operator": "RETURN",
+      "Left": "9002",
+      "Right": "_",
+      "Result": "1003"
+    },
+    {
+      "Operator": "ENDFunc",
+      "Left": "_",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "=",
+      "Left": "13001",
+      "Right": "_",
+      "Result": "1000"
+    },
+    {
+      "Operator": "ERA",
+      "Left": "dos",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "+",
+      "Left": "1000",
+      "Right": "13002",
+      "Result": "9003"
+    },
+    {
+      "Operator": "-",
+      "Left": "9003",
+      "Right": "13003",
+      "Result": "9004"
+    },
+    {
+      "Operator": "PARAM",
+      "Left": "9004",
+      "Right": "_",
+      "Result": "5001"
+    },
+    {
+      "Operator": "GOSUB",
+      "Left": "dos",
+      "Right": "_",
+      "Result": "4"
+    },
+    {
+      "Operator": "=",
+      "Left": "1003",
+      "Right": "_",
+      "Result": "9005"
+    },
+    {
+      "Operator": "print",
+      "Left": "9005",
+      "Right": "_",
+      "Result": "_"
+    }
+  ],
+  "constants": [
+    {
+      "literal": "2",
+      "type": "entero",
+      "address": 13000
+    },
+    {
+      "literal": "5",
+      "type": "entero",
+      "address": 13001
+    },
+    {
+      "literal": "3",
+      "type": "entero",
+      "address": 13002
+    },
+    {
+      "literal": "1",
+      "type": "entero",
+      "address": 13003
+    }
+  ]
+}

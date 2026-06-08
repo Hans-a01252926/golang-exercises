@@ -1,0 +1,25 @@
+programa pruebaFibonacci;
+
+vars resultado : entero;
+
+entero fibonacci(n : entero) {
+    vars r, a, b : entero;
+
+    {
+        si (n < 2) {
+            r = n;
+        } sino {
+            a = fibonacci(n - 1);
+            b = fibonacci(n - 2);
+            r = a + b;
+        };
+    }
+
+    return(r);
+};
+
+inicio {
+    resultado = fibonacci(7);
+    escribe("fibonacci recursivo");
+    escribe(resultado);
+} fin

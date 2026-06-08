@@ -1,0 +1,129 @@
+{
+  "quadruples": [
+    {
+      "Operator": "GOTO",
+      "Left": "_",
+      "Right": "_",
+      "Result": "11"
+    },
+    {
+      "Operator": "=",
+      "Left": "13000",
+      "Right": "_",
+      "Result": "5001"
+    },
+    {
+      "Operator": "\u003e",
+      "Left": "5000",
+      "Right": "13000",
+      "Result": "12000"
+    },
+    {
+      "Operator": "GOTOF",
+      "Left": "12000",
+      "Right": "_",
+      "Result": "9"
+    },
+    {
+      "Operator": "*",
+      "Left": "5001",
+      "Right": "5000",
+      "Result": "9000"
+    },
+    {
+      "Operator": "=",
+      "Left": "9000",
+      "Right": "_",
+      "Result": "5001"
+    },
+    {
+      "Operator": "-",
+      "Left": "5000",
+      "Right": "13000",
+      "Result": "9001"
+    },
+    {
+      "Operator": "=",
+      "Left": "9001",
+      "Right": "_",
+      "Result": "5000"
+    },
+    {
+      "Operator": "GOTO",
+      "Left": "_",
+      "Right": "_",
+      "Result": "2"
+    },
+    {
+      "Operator": "RETURN",
+      "Left": "5001",
+      "Right": "_",
+      "Result": "1001"
+    },
+    {
+      "Operator": "ENDFunc",
+      "Left": "_",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "ERA",
+      "Left": "factorialCiclo",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "PARAM",
+      "Left": "13001",
+      "Right": "_",
+      "Result": "5000"
+    },
+    {
+      "Operator": "GOSUB",
+      "Left": "factorialCiclo",
+      "Right": "_",
+      "Result": "1"
+    },
+    {
+      "Operator": "=",
+      "Left": "1001",
+      "Right": "_",
+      "Result": "9002"
+    },
+    {
+      "Operator": "=",
+      "Left": "9002",
+      "Right": "_",
+      "Result": "1000"
+    },
+    {
+      "Operator": "print",
+      "Left": "15000",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "print",
+      "Left": "1000",
+      "Right": "_",
+      "Result": "_"
+    }
+  ],
+  "constants": [
+    {
+      "literal": "1",
+      "type": "entero",
+      "address": 13000
+    },
+    {
+      "literal": "5",
+      "type": "entero",
+      "address": 13001
+    },
+    {
+      "literal": "\"factorial ciclo\"",
+      "type": "string",
+      "address": 15000
+    }
+  ]
+}

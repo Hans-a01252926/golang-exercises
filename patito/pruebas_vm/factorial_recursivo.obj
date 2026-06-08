@@ -1,0 +1,152 @@
+{
+  "quadruples": [
+    {
+      "Operator": "GOTO",
+      "Left": "_",
+      "Right": "_",
+      "Result": "14"
+    },
+    {
+      "Operator": "==",
+      "Left": "5000",
+      "Right": "13000",
+      "Result": "12000"
+    },
+    {
+      "Operator": "GOTOF",
+      "Left": "12000",
+      "Right": "_",
+      "Result": "5"
+    },
+    {
+      "Operator": "=",
+      "Left": "13001",
+      "Right": "_",
+      "Result": "5001"
+    },
+    {
+      "Operator": "GOTO",
+      "Left": "_",
+      "Right": "_",
+      "Result": "12"
+    },
+    {
+      "Operator": "ERA",
+      "Left": "factorialRec",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "-",
+      "Left": "5000",
+      "Right": "13001",
+      "Result": "9000"
+    },
+    {
+      "Operator": "PARAM",
+      "Left": "9000",
+      "Right": "_",
+      "Result": "5000"
+    },
+    {
+      "Operator": "GOSUB",
+      "Left": "factorialRec",
+      "Right": "_",
+      "Result": "1"
+    },
+    {
+      "Operator": "=",
+      "Left": "1001",
+      "Right": "_",
+      "Result": "9001"
+    },
+    {
+      "Operator": "*",
+      "Left": "5000",
+      "Right": "9001",
+      "Result": "9002"
+    },
+    {
+      "Operator": "=",
+      "Left": "9002",
+      "Right": "_",
+      "Result": "5001"
+    },
+    {
+      "Operator": "RETURN",
+      "Left": "5001",
+      "Right": "_",
+      "Result": "1001"
+    },
+    {
+      "Operator": "ENDFunc",
+      "Left": "_",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "ERA",
+      "Left": "factorialRec",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "PARAM",
+      "Left": "13002",
+      "Right": "_",
+      "Result": "5000"
+    },
+    {
+      "Operator": "GOSUB",
+      "Left": "factorialRec",
+      "Right": "_",
+      "Result": "1"
+    },
+    {
+      "Operator": "=",
+      "Left": "1001",
+      "Right": "_",
+      "Result": "9003"
+    },
+    {
+      "Operator": "=",
+      "Left": "9003",
+      "Right": "_",
+      "Result": "1000"
+    },
+    {
+      "Operator": "print",
+      "Left": "15000",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "print",
+      "Left": "1000",
+      "Right": "_",
+      "Result": "_"
+    }
+  ],
+  "constants": [
+    {
+      "literal": "\"factorial recursivo\"",
+      "type": "string",
+      "address": 15000
+    },
+    {
+      "literal": "0",
+      "type": "entero",
+      "address": 13000
+    },
+    {
+      "literal": "1",
+      "type": "entero",
+      "address": 13001
+    },
+    {
+      "literal": "5",
+      "type": "entero",
+      "address": 13002
+    }
+  ]
+}

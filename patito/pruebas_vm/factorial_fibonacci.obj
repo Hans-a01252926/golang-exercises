@@ -1,0 +1,194 @@
+{
+  "quadruples": [
+    {
+      "Operator": "GOTO",
+      "Left": "_",
+      "Right": "_",
+      "Result": "21"
+    },
+    {
+      "Operator": "\u003c",
+      "Left": "5000",
+      "Right": "13000",
+      "Result": "12000"
+    },
+    {
+      "Operator": "GOTOF",
+      "Left": "12000",
+      "Right": "_",
+      "Result": "5"
+    },
+    {
+      "Operator": "=",
+      "Left": "5000",
+      "Right": "_",
+      "Result": "5001"
+    },
+    {
+      "Operator": "GOTO",
+      "Left": "_",
+      "Right": "_",
+      "Result": "19"
+    },
+    {
+      "Operator": "ERA",
+      "Left": "fibonacci",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "-",
+      "Left": "5000",
+      "Right": "13001",
+      "Result": "9000"
+    },
+    {
+      "Operator": "PARAM",
+      "Left": "9000",
+      "Right": "_",
+      "Result": "5000"
+    },
+    {
+      "Operator": "GOSUB",
+      "Left": "fibonacci",
+      "Right": "_",
+      "Result": "1"
+    },
+    {
+      "Operator": "=",
+      "Left": "1001",
+      "Right": "_",
+      "Result": "9001"
+    },
+    {
+      "Operator": "=",
+      "Left": "9001",
+      "Right": "_",
+      "Result": "5002"
+    },
+    {
+      "Operator": "ERA",
+      "Left": "fibonacci",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "-",
+      "Left": "5000",
+      "Right": "13000",
+      "Result": "9002"
+    },
+    {
+      "Operator": "PARAM",
+      "Left": "9002",
+      "Right": "_",
+      "Result": "5000"
+    },
+    {
+      "Operator": "GOSUB",
+      "Left": "fibonacci",
+      "Right": "_",
+      "Result": "1"
+    },
+    {
+      "Operator": "=",
+      "Left": "1001",
+      "Right": "_",
+      "Result": "9003"
+    },
+    {
+      "Operator": "=",
+      "Left": "9003",
+      "Right": "_",
+      "Result": "5003"
+    },
+    {
+      "Operator": "+",
+      "Left": "5002",
+      "Right": "5003",
+      "Result": "9004"
+    },
+    {
+      "Operator": "=",
+      "Left": "9004",
+      "Right": "_",
+      "Result": "5001"
+    },
+    {
+      "Operator": "RETURN",
+      "Left": "5001",
+      "Right": "_",
+      "Result": "1001"
+    },
+    {
+      "Operator": "ENDFunc",
+      "Left": "_",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "ERA",
+      "Left": "fibonacci",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "PARAM",
+      "Left": "13002",
+      "Right": "_",
+      "Result": "5000"
+    },
+    {
+      "Operator": "GOSUB",
+      "Left": "fibonacci",
+      "Right": "_",
+      "Result": "1"
+    },
+    {
+      "Operator": "=",
+      "Left": "1001",
+      "Right": "_",
+      "Result": "9005"
+    },
+    {
+      "Operator": "=",
+      "Left": "9005",
+      "Right": "_",
+      "Result": "1000"
+    },
+    {
+      "Operator": "print",
+      "Left": "15000",
+      "Right": "_",
+      "Result": "_"
+    },
+    {
+      "Operator": "print",
+      "Left": "1000",
+      "Right": "_",
+      "Result": "_"
+    }
+  ],
+  "constants": [
+    {
+      "literal": "2",
+      "type": "entero",
+      "address": 13000
+    },
+    {
+      "literal": "1",
+      "type": "entero",
+      "address": 13001
+    },
+    {
+      "literal": "7",
+      "type": "entero",
+      "address": 13002
+    },
+    {
+      "literal": "\"fibonacci recursivo\"",
+      "type": "string",
+      "address": 15000
+    }
+  ]
+}

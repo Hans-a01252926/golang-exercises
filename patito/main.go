@@ -3,25 +3,31 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"patito/maquinavirtual"
+	"patito/objectfile"
 	"patito/parser"
 )
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Uso: go run . archivo.patito")
+		fmt.Println("Uso:")
+		fmt.Println("  go run . archivo.patito")
 		return
 	}
 
-	content, err := os.ReadFile(os.Args[1])
+	inputPath := os.Args[1]
+
+	content, err := os.ReadFile(inputPath)
 	if err != nil {
 		fmt.Println("Error leyendo archivo:", err)
 		return
 	}
 
-	l := parser.NewPatitoLexer(string(content)) // Este es el adaptador lexer -> parser
-	result := parser.Parse(l)                   // Esta es la función Parse generada por goyacc
+	l := parser.NewPatitoLexer(string(content))
+	result := parser.Parse(l)
 
 	if result != 0 || len(l.Errors) > 0 || len(l.Sem.Errors) > 0 || len(l.Gen.Errors) > 0 {
 		fmt.Println("Programa Patito inválido")
@@ -48,15 +54,58 @@ func main() {
 		fmt.Printf("%d: %s\n", i, q.String())
 	}
 
-	fmt.Println("\nEjecutando programa Patito...")
-	vm := maquinavirtual.NewVirtualMachine(l.Gen.Quadruples)
+	objPath := makeObjPath(inputPath)
 
-	// Cargar constantes a memoria de ejecución
+	// tabla de constantes a obj
+	constants := []objectfile.ObjectConstant{}
+
 	for _, c := range l.Sem.Constants.Constants {
-		vm.LoadConstant(int(c.Address), c.Literal, string(c.Type))
+		constants = append(constants, objectfile.ObjectConstant{
+			Literal: c.Literal,
+			Type:    string(c.Type),
+			Address: int(c.Address),
+		})
 	}
+
+	// crear objeto
+	obj := objectfile.ObjectFile{
+		Quadruples: l.Gen.Quadruples,
+		Constants:  constants,
+	}
+
+	err = objectfile.Save(objPath, obj)
+	if err != nil {
+		fmt.Println("Error generando archivo objeto:", err)
+		return
+	}
+
+	fmt.Println("\nArchivo objeto generado:", objPath)
+
+	// cargar .obj a vm
+	loadedObj, err := objectfile.Load(objPath)
+	if err != nil {
+		fmt.Println("Error cargando archivo objeto:", err)
+		return
+	}
+
+	// crear VM usando los cuádruplos cargados desde el .obj
+	vm := maquinavirtual.NewVirtualMachine(loadedObj.Quadruples)
+
+	// cargar constantes desde el .obj a la memoria constante de la VM
+	for _, c := range loadedObj.Constants {
+		vm.LoadConstant(c.Address, c.Literal, c.Type)
+	}
+
+	fmt.Println("\nEjecutando programa Patito...")
 
 	if err := vm.Run(); err != nil {
 		fmt.Println("Error en ejecución:", err)
 	}
+}
+
+func makeObjPath(inputPath string) string {
+	ext := filepath.Ext(inputPath)
+	base := strings.TrimSuffix(inputPath, ext)
+
+	return base + ".obj"
 }
